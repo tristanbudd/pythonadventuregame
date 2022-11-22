@@ -6,6 +6,8 @@ def main():
     while 1:
         tmp = open("data.txt", "a")
         tmp.close()
+        tmp = open("map.csv", "a")
+        tmp.close()
         f = open("data.txt", "rt")
         print("""
 ╔╦═╦╦╦══════╦╦════════╦╦═════╦╦╗
@@ -75,6 +77,18 @@ def newgame():
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
+    with open("map.csv", "w+") as c:
+        csvWriter = csv.writer(c, delimiter=',')
+        csvWriter.writerows(array)
+    c = open('map.csv', 'r')
+    datareader = csv.reader(c, delimiter=';')
+    for row in datareader:
+        array.append(row)
+    for i in range(y):
+        for l in range(x):
+            print(array[i][l], end= "")
+            if l == 24:
+                print()
     time.sleep(1)
     print("Saving Level To Data...")
     f = open("data.txt", "w")
