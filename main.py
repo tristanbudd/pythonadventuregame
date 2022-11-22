@@ -80,7 +80,7 @@ def newgame():
     with open("map.csv", "w+") as c:
         csvWriter = csv.writer(c, delimiter=',')
         csvWriter.writerows(array)
-    c = open('map.csv', 'r')
+    c = open("map.csv", "r")
     datareader = csv.reader(c, delimiter=';')
     for row in datareader:
         array.append(row)
@@ -130,13 +130,23 @@ def play():
     y = 10
     array = [[0] * x for _ in range(y)]
 
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
     charactername = "Error"
     gold = ""
     lives = ""
 
     while 1:
-        charactername = "Error"
+        c = open("map.csv", "r")
         f = open("data.txt", "rt")
+        datareader = csv.reader(c, delimiter=';')
+        for row in datareader:
+            array.append(row)
+        for i in range(y):
+            for l in range(x):
+                print(array[i][l], end="")
+                if l == 24:
+                    print()
 
         if f.read(14) == "charactername=":
             charactername = f.readline()
