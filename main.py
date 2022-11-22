@@ -171,11 +171,44 @@ def play():
         print("Character Name -", charactername.strip("\n"), " Gold -", gold, " Lives -", lives)
         while 1:
             keyboard.on_press_key("left arrow", lambda _: print("Attempting To Move Left"))
-            keyboard.on_press_key("right arrow", lambda _: print("Attempting To Move Right"))
+            keyboard.on_press_key("right arrow", lambda _: moveRight())
             keyboard.on_press_key("up arrow", lambda _: print("Attempting To Move Up"))
             keyboard.on_press_key("down arrow", lambda _: print("Attempting To Move Down"))
             while 1:
                 continue
+
+def moveRight():
+    x = 25
+    y = 10
+    xx = 0
+    yy = 0
+    array = [[0] * x for _ in range(y)]
+
+    c = open("map.csv", "r")
+    datareader = csv.reader(c, delimiter=';')
+    for row in datareader:
+        array.append(row)
+
+    for i in range(y):
+        for l in range(x):
+            if array[i][l] == "Y":
+                break
+            xx + 1
+        yy + 1
+
+    if array[yy][xx+1] == "#":
+        print("Hitting Map Border, Cencelling Move & Refreshing Screen")
+        time.sleep(1)
+        play()
+
+    array[yy][xx] = " "
+    array[yy][xx+1] = "Y"
+
+    with open("map.csv", "w+") as c:
+        csvWriter = csv.writer(c, delimiter=',')
+        csvWriter.writerows(array)
+    c.close()
+    play()
 
 if __name__ == "__main__":
     main()
