@@ -1,3 +1,0 @@
-charactername=Jim
-gold=500
-lives=3
