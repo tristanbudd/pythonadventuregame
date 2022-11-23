@@ -215,8 +215,6 @@ def moveRight():
 def moveLeft():
     x = 25
     y = 10
-    xx = 0
-    yy = 0
     array = [[0] * x for _ in range(y)]
     findingArray = []
 
@@ -246,8 +244,6 @@ def moveLeft():
 def moveUp():
     x = 25
     y = 10
-    xx = 0
-    yy = 0
     array = [[0] * x for _ in range(y)]
     findingArray = []
 
@@ -277,8 +273,6 @@ def moveUp():
 def moveDown():
     x = 25
     y = 10
-    xx = 0
-    yy = 0
     array = [[0] * x for _ in range(y)]
     findingArray = []
 
