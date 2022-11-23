@@ -32,7 +32,13 @@ def main():
         if input1 == "1":
             newgame()
         elif input1 == "2":
-            maingame()
+            print("Loading Game...")
+            time.sleep(1)
+            print("Loading Level...")
+            time.sleep(1)
+            print("Loading Characters...")
+            time.sleep(1)
+            verifyFiles()
         elif input1 == "3":
             print("WIP")
         elif input1 == "4":
@@ -100,25 +106,30 @@ def newgame():
     f.close()
 
     time.sleep(1)
-    maingame()
-
-def maingame():
     print("Loading Game...")
     time.sleep(1)
     print("Loading Level...")
     time.sleep(1)
     print("Loading Characters...")
     time.sleep(1)
-    f = open("data.txt", "rt")
-    if f.read(14) != "charactername=":
-        print("Invalid Savegame, Returning to main menu...")
-        f.close()
-        time.sleep(1)
-        main()
-    print("Loaded Successfully...")
-    f.close()
+    verifyFiles()
 
-    play()
+def verifyFiles():
+    a = "charactername="
+    b = "gold="
+    c = "lives="
+    d = "#########################"
+    with open(r"data.txt", "r+") as f:
+        fileContent = f.read()
+        if a in fileContent:
+            if b in fileContent:
+                if c in fileContent:
+                    play()
+    print("Invalid Savegame, Returning to main menu...")
+    f.close()
+    time.sleep(1)
+    main()
+    
 
 def play():
     f = open("data.txt", "rt")
@@ -175,33 +186,30 @@ def play():
 def moveRight():
     x = 25
     y = 10
-    xx = 0
-    yy = 0
     array = [[0] * x for _ in range(y)]
+    findingArray = []
 
     with open("map.csv", "r") as c:
         reader = csv.reader(c)
         array = [row for row in reader]
 
-    for i in range(y):
-        for l in range(x):
+    for i in range(len(array)):
+        for l in range(len(array[i])):
             if array[i][l] == "Y":
-                break
-            xx + 1
-        yy + 1
+                findingArray.append(i)
+                findingArray.append(l)
 
-    if array[yy][xx+1] == "#":
+    if array[findingArray[0]][findingArray[1]+1] == "#":
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
 
-    array[yy][xx] = " "
-    array[yy][xx+1] = "Y"
+    array[findingArray[0]][findingArray[1]] = " "
+    array[findingArray[0]][findingArray[1]+1] = "Y"
 
-    with open("map.csv", "w+") as c:
+    with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c, delimiter=',')
         csvWriter.writerows(array)
-    c.close()
     play()
 
 def moveLeft():
@@ -210,30 +218,29 @@ def moveLeft():
     xx = 0
     yy = 0
     array = [[0] * x for _ in range(y)]
+    findingArray = []
 
     with open("map.csv", "r") as c:
         reader = csv.reader(c)
         array = [row for row in reader]
 
-    for i in range(y):
-        for l in range(x):
+    for i in range(len(array)):
+        for l in range(len(array[i])):
             if array[i][l] == "Y":
-                break
-            xx + 1
-        yy + 1
+                findingArray.append(i)
+                findingArray.append(l)
 
-    if array[yy][xx-1] == "#":
+    if array[findingArray[0]][findingArray[1]-1] == "#":
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
 
-    array[yy][xx] = " "
-    array[yy][xx-1] = "Y"
+    array[findingArray[0]][findingArray[1]] = " "
+    array[findingArray[0]][findingArray[1]-1] = "Y"
 
-    with open("map.csv", "w+") as c:
+    with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c, delimiter=',')
         csvWriter.writerows(array)
-    c.close()
     play()
 
 def moveUp():
@@ -242,30 +249,29 @@ def moveUp():
     xx = 0
     yy = 0
     array = [[0] * x for _ in range(y)]
+    findingArray = []
 
     with open("map.csv", "r") as c:
         reader = csv.reader(c)
         array = [row for row in reader]
 
-    for i in range(y):
-        for l in range(x):
+    for i in range(len(array)):
+        for l in range(len(array[i])):
             if array[i][l] == "Y":
-                break
-            xx + 1
-        yy + 1
+                findingArray.append(i)
+                findingArray.append(l)
 
-    if array[yy+1][xx] == "#":
+    if array[findingArray[0]+1][findingArray[1]] == "#":
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
 
-    array[yy][xx] = " "
-    array[yy+1][xx] = "Y"
+    array[findingArray[0]][findingArray[1]] = " "
+    array[findingArray[0]+1][findingArray[1]] = "Y"
 
-    with open("map.csv", "w+") as c:
+    with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c, delimiter=',')
         csvWriter.writerows(array)
-    c.close()
     play()
 
 def moveDown():
@@ -274,30 +280,29 @@ def moveDown():
     xx = 0
     yy = 0
     array = [[0] * x for _ in range(y)]
+    findingArray = []
 
     with open("map.csv", "r") as c:
         reader = csv.reader(c)
         array = [row for row in reader]
 
-    for i in range(y):
-        for l in range(x):
+    for i in range(len(array)):
+        for l in range(len(array[i])):
             if array[i][l] == "Y":
-                break
-            xx + 1
-        yy + 1
+                findingArray.append(i)
+                findingArray.append(l)
 
-    if array[yy-1][xx] == "#":
+    if array[findingArray[0]-1][findingArray[1]] == "#":
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
 
-    array[yy][xx] = " "
-    array[yy-1][xx] = "Y"
+    array[findingArray[0]][findingArray[1]] = " "
+    array[findingArray[0]-1][findingArray[1]] = "Y"
 
-    with open("map.csv", "w+") as c:
+    with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c, delimiter=',')
         csvWriter.writerows(array)
-    c.close()
     play()
 
 if __name__ == "__main__":
