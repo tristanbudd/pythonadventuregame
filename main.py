@@ -1,5 +1,6 @@
 import time
 import csv
+import random
 
 def main():
     while 1:
@@ -84,7 +85,12 @@ def newgame():
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
-    array[8][8] = "B"
+    while 1:
+        a = random.randrange(1,9)
+        b = random.randrange(1,24)
+        if array[a][b] == " ":
+            array[a][b] = "B"
+            break
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
         csvWriter.writerows(array)
@@ -338,9 +344,6 @@ def moveDown():
 
 def bar():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-    charactername2 = "Error"
-    gold2 = 0
-    lives2 = 0
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -373,13 +376,43 @@ def bar():
 ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝        ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝""")
 
     while 1:
-        print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble 2 - Buy Drink 3 - Exit | Gold:", gold)
+        print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
         input1 = input("> ")
         if input1 == "1":
-            print("Gambling")
-        elif input1 == "1":
-            print("BuyDrink")
-        elif input1 == "3":
+            print("Please enter the amount you would like to gamble, Must be below 250 and above 50")
+            while 1:
+                input2 = input("> ")
+                if input2 < 250:
+                    if input2 > 50:
+                        break
+                print("Invalid Input, Please follow the games rules.")
+            print("Please enter either: 1 - Heads or 2 - Tails")
+            while 1:
+                input3 = input("> ")
+                if input3 == 1:
+                    coin = "true"
+                    break
+                elif input3 == 2:
+                    coin = "false"
+                    break
+                else:
+                    print("Invalid Input, Please follow the games rules.")
+            print("- ", gold)
+            print("Flipping Coin.")
+            time.sleep(1)
+            print("Flipping Coin..")
+            time.sleep(1)
+            print("Flipping Coin...")
+            time.sleep(1)
+            if result > 50:
+                print("The Result Was: Heads!")
+            elif result < 50:
+                print("The Result Was: Tails!")
+            else:
+                print("It was a draw!, Your money was refunded.")
+                print("+", input2)
+
+        elif input1 == "2":
             f.close()
             f = open("data.txt", "w")
             f.write("charactername=")
