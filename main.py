@@ -86,10 +86,16 @@ def newgame():
             array[i][l] = "#"
     array[1][1] = "Y"
     while 1:
-        a = random.randrange(1,9)
-        b = random.randrange(1,24)
+        a = random.randrange(2,8)
+        b = random.randrange(2,23)
         if array[a][b] == " ":
             array[a][b] = "B"
+            break
+    while 1:
+        a = random.randrange(2,8)
+        b = random.randrange(2,23)
+        if array[a][b] == " ":
+            array[a][b] = "A"
             break
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
@@ -230,6 +236,10 @@ def moveRight():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0]][findingArray[1] + 1] == "A":
+        print("Opening Convosation With Adam!")
+        time.sleep(1)
+        adam()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -264,6 +274,10 @@ def moveLeft():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0]][findingArray[1] - 1] == "A":
+        print("Opening Convosation With Adam!")
+        time.sleep(1)
+        adam()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -298,6 +312,10 @@ def moveUp():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0] - 1][findingArray[1]] == "A":
+        print("Opening Convosation With Adam!")
+        time.sleep(1)
+        adam()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -332,6 +350,10 @@ def moveDown():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0] + 1][findingArray[1]] == "A":
+        print("Opening Convosation With Adam!")
+        time.sleep(1)
+        adam()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -376,15 +398,16 @@ def bar():
 ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝        ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝""")
 
     while 1:
-        print("\n\n\nWelcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
+        print("\nWelcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
         input1 = input("> ")
         if input1 == "1":
-            print("Please enter the amount you would like to gamble, Must be below 250 and above 50")
+            print("Please enter the amount you would like to gamble, Must be above 50 or below 250")
             while 1:
                 input2 = int(input("> "))
-                if input2 < 250:
-                    if input2 > 50:
-                        break
+                if input2 <= gold:
+                    if input2 <= 250:
+                        if input2 >= 50:
+                            break
                 print("Invalid Input, Please follow the games rules.")
             print("Please enter either: 1 - Heads or 2 - Tails")
             while 1:
@@ -398,7 +421,7 @@ def bar():
                 else:
                     print("Invalid Input, Please follow the games rules.")
             print("-", input2, " gold.")
-            gold - input2
+            gold = gold - input2
             print("Flipping Coin.")
             time.sleep(1)
             print("Flipping Coin..")
@@ -411,7 +434,7 @@ def bar():
                 if coin == "true":
                     print("Congratulations, you have doubled your money!")
                     print("+", input2 * 2, "gold.")
-                    gold + input2 * 2
+                    gold = gold + input2 * 2
                 else:
                     print("Sorry, you have lost the money that you have bet.")
             elif result < 50:
@@ -419,19 +442,21 @@ def bar():
                 if coin == "false":
                     print("Congratulations, you have doubled your money!")
                     print("+ ", input2 * 2, "gold.")
-                    gold + input2 * 2
+                    gold = gold + input2 * 2
                 else:
                     print("Sorry, you have lost the money that you have bet.")
             else:
                 print("It was a draw!, Your money was refunded.")
                 print("+ ", input2, " gold.")
-                gold + input2
+                gold = gold + input2
 
         elif input1 == "2":
             f.close()
+            gold = int(gold)
+            charactername = charactername.strip("\n")
             f = open("data.txt", "w")
             f.write("charactername=")
-            f.write(input1)
+            f.write(charactername)
             f.write("\n")
             f.write("gold=")
             f.write('%d' % gold)
@@ -445,6 +470,11 @@ def bar():
             play()
         else:
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNot Found, Please Try Again")
+
+def adam():
+    print("test")
+    time.sleep(3)
+    play()
 
 if __name__ == "__main__":
     main()
