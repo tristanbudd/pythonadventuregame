@@ -1,6 +1,5 @@
 import time
 import csv
-from re import match
 
 def main():
     while 1:
