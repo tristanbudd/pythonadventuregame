@@ -2,8 +2,6 @@ import time
 import csv
 from re import match
 
-import keyboard
-
 def main():
     while 1:
         tmp = open("data.txt", "a")
@@ -124,7 +122,6 @@ def verifyFiles():
     a = "charactername="
     b = "gold="
     c = "lives="
-    d = "#########################"
     with open(r"data.txt", "r+") as f:
         fileContent = f.read()
         if a in fileContent:
