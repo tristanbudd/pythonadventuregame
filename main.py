@@ -379,7 +379,54 @@ def bar():
         print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
         input1 = input("> ")
         if input1 == "1":
-            print("Gambling")
+            print("Please enter the amount you would like to gamble, Must be below 250 and above 50")
+            while 1:
+                input2 = input("> ")
+                if input2 < 250:
+                    if input2 > 50:
+                        break
+                print("Invalid Input, Please follow the games rules.")
+            print("Please enter either: 1 - Heads or 2 - Tails")
+            while 1:
+                input3 = input("> ")
+                if input3 == 1:
+                    coin = "true"
+                    break
+                elif input3 == 2:
+                    coin = "false"
+                    break
+                else:
+                    print("Invalid Input, Please follow the games rules.")
+            print("- ", input2, " gold.")
+            gold - input2
+            print("Flipping Coin.")
+            time.sleep(1)
+            print("Flipping Coin..")
+            time.sleep(1)
+            print("Flipping Coin...")
+            result = random.randrange(1,100)
+            time.sleep(1)
+            if result > 50:
+                print("The Result Was: Heads!")
+                if coin == "true":
+                    print("Congratulations, you have doubled your money!")
+                    print("+ ", input2 * 2, " gold.")
+                    gold + input2 * 2
+                else:
+                    print("Sorry, you have lost the money that you have bet.")
+            elif result < 50:
+                print("The Result Was: Tails!")
+                if coin == "false":
+                    print("Congratulations, you have doubled your money!")
+                    print("+ ", input2 * 2, " gold.")
+                    gold + input2 * 2
+                else:
+                    print("Sorry, you have lost the money that you have bet.")
+            else:
+                print("It was a draw!, Your money was refunded.")
+                print("+ ", input2, " gold.")
+                gold + input2
+
         elif input1 == "2":
             f.close()
             f = open("data.txt", "w")
