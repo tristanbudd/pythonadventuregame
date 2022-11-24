@@ -1,8 +1,6 @@
 import time
 import csv
-from re import match
-
-import keyboard
+import random
 
 def main():
     while 1:
@@ -87,7 +85,12 @@ def newgame():
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
-    array[8][8] = "B"
+    while 1:
+        a = random.randrange(1,9)
+        b = random.randrange(1,24)
+        if array[a][b] == " ":
+            array[a][b] = "B"
+            break
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
         csvWriter.writerows(array)
@@ -124,7 +127,6 @@ def verifyFiles():
     a = "charactername="
     b = "gold="
     c = "lives="
-    d = "#########################"
     with open(r"data.txt", "r+") as f:
         fileContent = f.read()
         if a in fileContent:
@@ -342,9 +344,6 @@ def moveDown():
 
 def bar():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-    charactername2 = "Error"
-    gold2 = 0
-    lives2 = 0
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -377,13 +376,11 @@ def bar():
 ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝        ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝""")
 
     while 1:
-        print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble 2 - Buy Drink 3 - Exit | Gold:", gold)
+        print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
         input1 = input("> ")
         if input1 == "1":
             print("Gambling")
-        elif input1 == "1":
-            print("BuyDrink")
-        elif input1 == "3":
+        elif input1 == "2":
             f.close()
             f = open("data.txt", "w")
             f.write("charactername=")
