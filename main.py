@@ -1,5 +1,7 @@
 import time
 import csv
+from re import match
+
 import keyboard
 
 def main():
@@ -85,6 +87,7 @@ def newgame():
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
+    array[8][8] = "B"
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
         csvWriter.writerows(array)
@@ -178,7 +181,7 @@ def play():
                 lives = int(lives)
 
         print("Character Name -", charactername.strip("\n"), " Gold -", gold, " Lives -", lives)
-        print("Enter A Character To Interact: W - Up, A - Left, S - Down, D - Right, E - Interact, Q - Quit")
+        print("Enter A Character To Interact: W - Up, A - Left, S - Down, D - Right, Q - Quit")
         while 1:
             maininput = input("> ")
             if maininput.upper() == "W":
@@ -189,8 +192,6 @@ def play():
                 moveDown()
             elif maininput.upper() == "D":
                 moveRight()
-            elif maininput.upper() == "E":
-                print("Interact")
             elif maininput.upper() == "Q":
                 print("Returning to Main Menu.")
                 time.sleep(0.5)
@@ -223,6 +224,10 @@ def moveRight():
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
+    if array[findingArray[0]][findingArray[1] + 1] == "B":
+        print("Entering The Bar!")
+        time.sleep(1)
+        bar()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -253,6 +258,10 @@ def moveLeft():
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
+    if array[findingArray[0]][findingArray[1] - 1] == "B":
+        print("Entering The Bar!")
+        time.sleep(1)
+        bar()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -283,6 +292,10 @@ def moveUp():
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
+    if array[findingArray[0] - 1][findingArray[1]] == "B":
+        print("Entering The Bar!")
+        time.sleep(1)
+        bar()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -313,6 +326,10 @@ def moveDown():
         print("Hitting Map Border, Cancelling Move & Refreshing Screen")
         time.sleep(1)
         play()
+    if array[findingArray[0] + 1][findingArray[1]] == "B":
+        print("Entering The Bar!")
+        time.sleep(1)
+        bar()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -322,6 +339,68 @@ def moveDown():
         csvWriter.writerows(array)
     play()
 
+
+def bar():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    charactername2 = "Error"
+    gold2 = 0
+    lives2 = 0
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+████████╗██╗░░██╗███████╗        ██████╗░░█████╗░██████╗░
+╚══██╔══╝██║░░██║██╔════╝        ██╔══██╗██╔══██╗██╔══██╗
+░░░██║░░░███████║█████╗░░        ██████╦╝███████║██████╔╝
+░░░██║░░░██╔══██║██╔══╝░░        ██╔══██╗██╔══██║██╔══██╗
+░░░██║░░░██║░░██║███████╗        ██████╦╝██║░░██║██║░░██║
+░░░╚═╝░░░╚═╝░░╚═╝╚══════╝        ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝""")
+
+    while 1:
+        print("Welcome to the bar,", charactername, "Please select an option:\n1 - Gamble 2 - Buy Drink 3 - Exit | Gold:", gold)
+        input1 = input("> ")
+        if input1 == "1":
+            print("Gambling")
+        elif input1 == "1":
+            print("BuyDrink")
+        elif input1 == "3":
+            f.close()
+            f = open("data.txt", "w")
+            f.write("charactername=")
+            f.write(input1)
+            f.write("\n")
+            f.write("gold=")
+            f.write('%d' % gold)
+            f.write("\n")
+            f.write("lives=")
+            f.write('%d' % lives)
+            f.write("\n")
+            f.close()
+            print("Data Saved, Returning To Main Game")
+            time.sleep(1)
+            play()
+        else:
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNot Found, Please Try Again")
 
 if __name__ == "__main__":
     main()
