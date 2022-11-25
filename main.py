@@ -468,13 +468,192 @@ def bar():
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
+        elif input1 == "5":
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhats the password?")
+            input4 = input("> ")
+            if input4 == "AdamWasHere":
+                print("Zeus - So your the new guy everyones talking about, Huh...")
+                time.sleep(2)
+                print("Zeus - We've been having some issues with some thugs around here, you look well, capable...")
+                time.sleep(2)
+                print("Zeus - Here's a deal for you, get them out of town and I will give you 250 Gold & Protection...")
+                time.sleep(2)
+                print("\n1 ) Who are the thugs?\n2 ) Protection from what?\n3 ) Accept Mission")
+                while 1:
+                    input5 = input("> ")
+                    if input5 == "1":
+                        print(charactername, "- Who are the thugs?")
+                        time.sleep(2)
+                        print("Zeus - Frank, Jay and Zach. You won't miss them, you can see them from a mile away.")
+                    elif input5 == "2":
+                        print(charactername, "- Protection from what?")
+                        time.sleep(2)
+                        print("Zack - Thats none of your concern, as of right now.")
+                    elif input5 == "3":
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        print(charactername, "- Okay... I will do it...")
+                        time.sleep(2)
+                        print("Zack - You made the right choice...")
+                        time.sleep(1)
+                        print("\nYou leave the bar.")
+                        x = 25
+                        y = 10
+                        array = [[0] * x for _ in range(y)]
+                        findingArray = []
+                        with open("map.csv", "r") as c:
+                            reader = csv.reader(c)
+                            array = [row for row in reader]
+
+                        for i in range(len(array)):
+                            for l in range(len(array[i])):
+                                if array[i][l] == "Y":
+                                    findingArray.append(i)
+                                    findingArray.append(l)
+                        time.sleep(1)
+                        while 1:
+                            a = random.randrange(2, 8)
+                            b = random.randrange(2, 23)
+                            if array[a][b] == " ":
+                                array[a][b] = "T1"
+                                break
+                        while 1:
+                            a = random.randrange(2, 8)
+                            b = random.randrange(2, 23)
+                            if array[a][b] == " ":
+                                array[a][b] = "T2"
+                                break
+                        while 1:
+                            a = random.randrange(2, 8)
+                            b = random.randrange(2, 23)
+                            if array[a][b] == " ":
+                                array[a][b] = "T3"
+                                break
+                        print("\nYou leave the bar..")
+                        with open("map.csv", "w", newline="") as c:
+                            csvWriter = csv.writer(c, delimiter=',')
+                            csvWriter.writerows(array)
+                        time.sleep(1)
+                        print("\nYou leave the bar...")
+                        play()
+            else:
+                print("Thats not the password... Get out of my bar now...")
+                time.sleep(2)
+                print("You get kicked out the bar...")
+                time.sleep(2)
+                f.close()
+                gold = int(gold)
+                charactername = charactername.strip("\n")
+                f = open("data.txt", "w")
+                f.write("charactername=")
+                f.write(charactername)
+                f.write("\n")
+                f.write("gold=")
+                f.write('%d' % gold)
+                f.write("\n")
+                f.write("lives=")
+                f.write('%d' % lives)
+                f.write("\n")
+                f.close()
+                print("Data Saved, Returning To Main Game")
+                time.sleep(1)
+                play()
         else:
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNot Found, Please Try Again")
 
 def adam():
-    print("test")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+███████████████████████████
+██▀▄─██▄─▄▄▀██▀▄─██▄─▀█▀─▄█
+██─▀─███─██─██─▀─███─█▄█─██
+▀▄▄▀▄▄▀▄▄▄▄▀▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀""")
+
+    print("Adam - Hello traveller, whats your name?\n1 ) Tell Real Name\n2 ) Tell Fake Name")
+    input1 = input("> ")
+    if input1 == "1":
+        print(charactername.strip("\n"), "- My name is", charactername.strip("\n"), ", Nice to meet you.")
+        time.sleep(1)
+        print("Adam - Well it was nice to meet you,", charactername.strip("\n"), "I'm currently leaving town to get another job,")
+        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
+    elif input1 == "2":
+        print(charactername.strip("\n"), "- My name is Mickenzie.")
+        time.sleep(1)
+        print("Adam - Well it was nice to meet you, Mickenzie. I'm currently leaving town to get another job,")
+        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
+    else:
+        print(charactername.strip("\n"), "- ...")
+        time.sleep(1)
+        print("Adam - Well it was nice to meet you, No need to be rude but I'm currently leaving town to get another job,")
+        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
     time.sleep(3)
-    play()
+    print("1 ) Acknowledge and Leave")
+    while 1:
+        input2 = input("> ")
+        if input2 == "1":
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            time.sleep(1)
+            print("Adam - Good Luck...")
+            print("Adam walks out of town into the fog...")
+            time.sleep(3)
+            f.close()
+            gold = int(gold)
+            charactername = charactername.strip("\n")
+            f = open("data.txt", "w")
+            f.write("charactername=")
+            f.write(charactername)
+            f.write("\n")
+            f.write("gold=")
+            f.write('%d' % gold)
+            f.write("\n")
+            f.write("lives=")
+            f.write('%d' % lives)
+            f.write("\n")
+            f.close()
+            # Removing adam from the map
+            x = 25
+            y = 10
+            array = [[0] * x for _ in range(y)]
+            findingArray = []
+            with open("map.csv", "r") as c:
+                reader = csv.reader(c)
+                array = [row for row in reader]
+
+            for i in range(len(array)):
+                for l in range(len(array[i])):
+                    if array[i][l] == "A":
+                        findingArray.append(i)
+                        findingArray.append(l)
+
+            array[findingArray[0]][findingArray[1]] = " "
+
+            with open("map.csv", "w", newline="") as c:
+                csvWriter = csv.writer(c, delimiter=',')
+                csvWriter.writerows(array)
+            print("Data Saved, Returning To Main Game")
+            play()
 
 if __name__ == "__main__":
     main()
