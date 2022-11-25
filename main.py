@@ -472,6 +472,17 @@ def bar():
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhats the password?")
             input4 = input("> ")
             if input4 == "AdamWasHere":
+                x = 25
+                y = 10
+                array = [[0] * x for _ in range(y)]
+                with open("map.csv", "r") as c:
+                    reader = csv.reader(c)
+                    array = [row for row in reader]
+                for i in range(len(array)):
+                    for l in range(len(array[i])):
+                        if array[i][l] == "T1":
+                            print("\n\n\nZack - You have already been here. Go away.")
+                            play()
                 print("Zeus - So your the new guy everyones talking about, Huh...")
                 time.sleep(2)
                 print("Zeus - We've been having some issues with some thugs around here, you look well, capable...")
@@ -482,58 +493,53 @@ def bar():
                 while 1:
                     input5 = input("> ")
                     if input5 == "1":
-                        print(charactername, "- Who are the thugs?")
+                        print(charactername.strip("\n"), "- Who are the thugs?")
                         time.sleep(2)
                         print("Zeus - Frank, Jay and Zach. You won't miss them, you can see them from a mile away.")
                     elif input5 == "2":
-                        print(charactername, "- Protection from what?")
+                        print(charactername.strip("\n"), "- Protection from what?")
                         time.sleep(2)
                         print("Zack - Thats none of your concern, as of right now.")
                     elif input5 == "3":
                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                        print(charactername, "- Okay... I will do it...")
+                        print(charactername.strip("\n"), "- Okay... I will do it...")
                         time.sleep(2)
                         print("Zack - You made the right choice...")
                         time.sleep(1)
                         print("\nYou leave the bar.")
-                        x = 25
-                        y = 10
-                        array = [[0] * x for _ in range(y)]
-                        findingArray = []
-                        with open("map.csv", "r") as c:
-                            reader = csv.reader(c)
-                            array = [row for row in reader]
-
-                        for i in range(len(array)):
-                            for l in range(len(array[i])):
-                                if array[i][l] == "Y":
-                                    findingArray.append(i)
-                                    findingArray.append(l)
                         time.sleep(1)
                         while 1:
-                            a = random.randrange(2, 8)
-                            b = random.randrange(2, 23)
+                            a = random.randrange(1, 9)
+                            b = random.randrange(1, 24)
                             if array[a][b] == " ":
-                                array[a][b] = "T1"
+                                array[a][b] = "F"
                                 break
                         while 1:
-                            a = random.randrange(2, 8)
-                            b = random.randrange(2, 23)
+                            a = random.randrange(1, 9)
+                            b = random.randrange(1, 24)
                             if array[a][b] == " ":
-                                array[a][b] = "T2"
+                                array[a][b] = "J"
                                 break
                         while 1:
-                            a = random.randrange(2, 8)
-                            b = random.randrange(2, 23)
+                            a = random.randrange(1, 9)
+                            b = random.randrange(1, 24)
                             if array[a][b] == " ":
-                                array[a][b] = "T3"
+                                array[a][b] = "Z"
                                 break
                         print("\nYou leave the bar..")
                         with open("map.csv", "w", newline="") as c:
                             csvWriter = csv.writer(c, delimiter=',')
                             csvWriter.writerows(array)
-                        time.sleep(1)
                         print("\nYou leave the bar...")
+                        time.sleep(1)
+                        findingArray = []
+                        for i in range(len(array)):
+                            for l in range(len(array[i])):
+                                if array[i][l] == "A":
+                                    findingArray.append(i)
+                                    findingArray.append(l)
+
+                        array[findingArray[0]][findingArray[1]] = " "
                         play()
             else:
                 print("Thats not the password... Get out of my bar now...")
