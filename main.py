@@ -240,6 +240,10 @@ def moveRight():
         print("Opening Convosation With Adam!")
         time.sleep(1)
         adam()
+    if array[findingArray[0]][findingArray[1] + 1] == "F":
+        print("Opening Convosation With Frank!")
+        time.sleep(1)
+        frank()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -278,6 +282,10 @@ def moveLeft():
         print("Opening Convosation With Adam!")
         time.sleep(1)
         adam()
+    if array[findingArray[0]][findingArray[1] - 1] == "F":
+        print("Opening Convosation With Frank!")
+        time.sleep(1)
+        frank()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -316,6 +324,10 @@ def moveUp():
         print("Opening Convosation With Adam!")
         time.sleep(1)
         adam()
+    if array[findingArray[0] - 1][findingArray[1]] == "F":
+        print("Opening Convosation With Frank!")
+        time.sleep(1)
+        frank()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -354,6 +366,10 @@ def moveDown():
         print("Opening Convosation With Adam!")
         time.sleep(1)
         adam()
+    if array[findingArray[0] + 1][findingArray[1]] == "F":
+        print("Opening Convosation With Frank!")
+        time.sleep(1)
+        frank()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -471,7 +487,7 @@ def bar():
         elif input1 == "5":
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhats the password?")
             input4 = input("> ")
-            if input4 == "AdamWasHere":
+            if input4 == "Adam44":
                 x = 25
                 y = 10
                 array = [[0] * x for _ in range(y)]
@@ -480,14 +496,23 @@ def bar():
                     array = [row for row in reader]
                 for i in range(len(array)):
                     for l in range(len(array[i])):
-                        if array[i][l] == "T1":
+                        if array[i][l] == "Z":
                             print("\n\n\nZack - You have already been here. Go away.")
+                            time.sleep(3)
                             play()
-                print("Zeus - So your the new guy everyones talking about, Huh...")
+                        if array[i][l] == "J":
+                            print("\n\n\nZack - You have already been here. Go away.")
+                            time.sleep(3)
+                            play()
+                        if array[i][l] == "F":
+                            print("\n\n\nZack - You have already been here. Go away.")
+                            time.sleep(3)
+                            play()
+                print("Zack - So your the new guy everyones talking about, Huh...")
                 time.sleep(2)
-                print("Zeus - We've been having some issues with some thugs around here, you look well, capable...")
+                print("Zack - We've been having some issues with some thugs around here, you look well, capable...")
                 time.sleep(2)
-                print("Zeus - Here's a deal for you, get them out of town and I will give you 250 Gold & Protection...")
+                print("Zack - Here's a deal for you, get them out of town and I will give you 250 Gold & Protection...")
                 time.sleep(2)
                 print("\n1 ) Who are the thugs?\n2 ) Protection from what?\n3 ) Accept Mission")
                 while 1:
@@ -495,7 +520,7 @@ def bar():
                     if input5 == "1":
                         print(charactername.strip("\n"), "- Who are the thugs?")
                         time.sleep(2)
-                        print("Zeus - Frank, Jay and Zach. You won't miss them, you can see them from a mile away.")
+                        print("Zack - Frank, Jay and Zane. You won't miss them, you can see them from a mile away.")
                     elif input5 == "2":
                         print(charactername.strip("\n"), "- Protection from what?")
                         time.sleep(2)
@@ -527,19 +552,12 @@ def bar():
                                 array[a][b] = "Z"
                                 break
                         print("\nYou leave the bar..")
+                        time.sleep(1)
+                        print("\nYou leave the bar...")
+                        time.sleep(1)
                         with open("map.csv", "w", newline="") as c:
                             csvWriter = csv.writer(c, delimiter=',')
                             csvWriter.writerows(array)
-                        print("\nYou leave the bar...")
-                        time.sleep(1)
-                        findingArray = []
-                        for i in range(len(array)):
-                            for l in range(len(array[i])):
-                                if array[i][l] == "A":
-                                    findingArray.append(i)
-                                    findingArray.append(l)
-
-                        array[findingArray[0]][findingArray[1]] = " "
                         play()
             else:
                 print("Thats not the password... Get out of my bar now...")
@@ -603,18 +621,18 @@ def adam():
         print(charactername.strip("\n"), "- My name is", charactername.strip("\n"), ", Nice to meet you.")
         time.sleep(1)
         print("Adam - Well it was nice to meet you,", charactername.strip("\n"), "I'm currently leaving town to get another job,")
-        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
+        print("to get started contact the bartender with option 5 and tell him the password: Adam44.")
     elif input1 == "2":
         print(charactername.strip("\n"), "- My name is Mickenzie.")
         time.sleep(1)
         print("Adam - Well it was nice to meet you, Mickenzie. I'm currently leaving town to get another job,")
-        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
+        print("to get started contact the bartender with option 5 and tell him the password: Adam44.")
     else:
         print(charactername.strip("\n"), "- ...")
         time.sleep(1)
         print("Adam - Well it was nice to meet you, No need to be rude but I'm currently leaving town to get another job,")
-        print("to get started contact the bartender with option 5 and tell him the password: AdamWasHere.")
-    time.sleep(3)
+        print("to get started contact the bartender with option 5 and tell him the password: Adam44.")
+    time.sleep(7)
     print("1 ) Acknowledge and Leave")
     while 1:
         input2 = input("> ")
@@ -660,6 +678,134 @@ def adam():
                 csvWriter.writerows(array)
             print("Data Saved, Returning To Main Game")
             play()
+
+def frank():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+██████████████████████████████████████████████████████████████████████████████████████████
+█░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░███░░░░░░░░░░░░░░█░░░░░░██████████░░░░░░█░░░░░░██░░░░░░░░█
+█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀▄▀▄▀▄▀▄▀▄▀░░███░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░░░░░░░░░██░░▄▀░░█░░▄▀░░██░░▄▀▄▀░░█
+█░░▄▀░░░░░░░░░░█░░▄▀░░░░░░░░▄▀░░███░░▄▀░░░░░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░░░█
+█░░▄▀░░█████████░░▄▀░░████░░▄▀░░███░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░███
+█░░▄▀░░░░░░░░░░█░░▄▀░░░░░░░░▄▀░░███░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░███
+█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀▄▀▄▀▄▀▄▀▄▀░░███░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░███
+█░░▄▀░░░░░░░░░░█░░▄▀░░░░░░▄▀░░░░███░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░███
+█░░▄▀░░█████████░░▄▀░░██░░▄▀░░█████░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░███
+█░░▄▀░░█████████░░▄▀░░██░░▄▀░░░░░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░░░█
+█░░▄▀░░█████████░░▄▀░░██░░▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░░░░░░░░░▄▀░░█░░▄▀░░██░░▄▀▄▀░░█
+█░░░░░░█████████░░░░░░██░░░░░░░░░░█░░░░░░██░░░░░░█░░░░░░██████████░░░░░░█░░░░░░██░░░░░░░░█
+██████████████████████████████████████████████████████████████████████████████████████████""")
+
+    print("Frank - Hey, Whats up?\n1 ) Ask To Leave Nicely\n2 ) Try To Bribe\n3 ) Fight")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            print(charactername.strip("\n"), "- You Need To Leave...")
+            time.sleep(1)
+            print("Frank - Whys that?")
+            time.sleep(1)
+            print(charactername.strip("\n"), "- The Bartender Says So, Your not welcome here any longer.")
+            time.sleep(1)
+            print("Frank - Well, Thats not going to happen, Me, Zane & Jay arent going nowhere.")
+            time.sleep(1)
+            print("\n2 ) Try To Bribe\n3 ) Fight")
+        elif input1 == "2":
+            print(charactername.strip("\n"), "Say I gave you some gold, would you mind leaving?")
+            time.sleep(1)
+            print("Frank - Depends how much... How much you offering...")
+            time.sleep(1)
+            print("\n1 ) 100 Gold\n2 ) 250 Gold\n3 ) All Gold")
+            while 1:
+                input2 = input("> ")
+                if input2 == "1":
+                    print("Frank - Not enough mate, Thats not gonna get my anywhere...")
+                    time.sleep(1)
+                    print("Frank - Get out of here before I knock your out mate...")
+                    time.sleep(1)
+                    print("\n3 ) Fight")
+                    break
+                elif input2 == "2":
+                    print("Frank - Ehh, Reasonable but im sure you have more...")
+                    time.sleep(1)
+                    print("Frank - How about I beat you up and we will see for sure tough guy!")
+                    time.sleep(1)
+                    print("\n3 ) Fight")
+                    break
+                elif input2 == "3":
+                    print("Frank - Fine, That will probably be enough. Goodbye...")
+                    time.sleep(3)
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    time.sleep(2)
+                    print("Frank Leaves Town...")
+                    gold = 0
+                    time.sleep(3)
+                    f.close()
+                    gold = int(gold)
+                    charactername = charactername.strip("\n")
+                    f = open("data.txt", "w")
+                    f.write("charactername=")
+                    f.write(charactername)
+                    f.write("\n")
+                    f.write("gold=")
+                    f.write('%d' % gold)
+                    f.write("\n")
+                    f.write("lives=")
+                    f.write('%d' % lives)
+                    f.write("\n")
+                    f.close()
+                    # Removing frank from the map
+                    x = 25
+                    y = 10
+                    array = [[0] * x for _ in range(y)]
+                    findingArray = []
+                    with open("map.csv", "r") as c:
+                        reader = csv.reader(c)
+                        array = [row for row in reader]
+
+                    for i in range(len(array)):
+                        for l in range(len(array[i])):
+                            if array[i][l] == "F":
+                                findingArray.append(i)
+                                findingArray.append(l)
+
+                    array[findingArray[0]][findingArray[1]] = " "
+
+                    with open("map.csv", "w", newline="") as c:
+                        csvWriter = csv.writer(c, delimiter=',')
+                        csvWriter.writerows(array)
+                    print("Data Saved, Returning To Main Game")
+                    play()
+                else:
+                    print("Invalid Input, Please enter 1, 2 or 3...")
+        elif input1 == "3":
+            time.sleep(1)
+            print("Begining Fight With Frank...")
+            time.sleep(1)
+        else:
+            print("Invalid Input, Please enter 1, 2 or 3...")
 
 if __name__ == "__main__":
     main()
