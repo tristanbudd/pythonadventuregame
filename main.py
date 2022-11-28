@@ -953,8 +953,8 @@ def frank():
                 else:
                     print("Invalid Input, Please enter 1, 2 or 3...")
         elif input1 == "3":
-            enemyattack = 5
-            enemydefence = 5
+            enemyattack = 3
+            enemydefence = 4
             attack = 5
             defence = 5
             time.sleep(1)
@@ -968,7 +968,7 @@ def frank():
                     lives - 1
                     time.sleep(2)
                     print("Frank Decides To Leave Town & Get Medical Care...")
-                    time.sleep(3)
+                    time.sleep(5)
                     f.close()
                     gold = int(gold)
                     charactername = charactername.strip("\n")
@@ -1010,7 +1010,7 @@ def frank():
                     print("You have won the battle!")
                     time.sleep(2)
                     print("Frank Leaves Town Having Sustained Bad Injuries...")
-                    time.sleep(3)
+                    time.sleep(5)
                     f.close()
                     gold = int(gold)
                     charactername = charactername.strip("\n")
@@ -1052,9 +1052,60 @@ def frank():
 (._.)
 <|>
 _/\_""")
+                while 1:
+                    frankAttack = random.randrange(1, 6)
+                    if frankAttack == 1:
+                        if enemyattack < 3:
+                             continue
+                        defence = defence - 2
+                        enemyattack = enemyattack - 3
+                        print("Frank - feels weakened, Loses 2 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "- Takes a punch to the face, Loses 2 Defence.")
+                        time.sleep(3)
+                        break
+                    elif frankAttack == 2:
+                        if enemyattack < 1:
+                             continue
+                        defence = defence - 1
+                        enemyattack = enemyattack - 1
+                        print("Frank - feels weakened, Loses 1 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "Gets kicked, Loses 1 Defence.")
+                        time.sleep(3)
+                        break
+                    elif frankAttack == 3:
+                        if enemyattack < 2:
+                             continue
+                        defence = defence - 2
+                        enemyattack = enemyattack - 2
+                        print("Frank - feels weakened, Loses 2 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "- Gets barged, Loses 2 Defence.")
+                        time.sleep(3)
+                        break
+                    elif frankAttack == 4:
+                        enemyattack = enemyattack + 1
+                        enemydefence = enemydefence + 1
+                        print("Frank - Takes cover, and gains strength. Gains 1 Attack Power & 1 Defence")
+                        time.sleep(3)
+                        break
+                    elif frankAttack == 5:
+                        enemyattack = enemyattack + 2
+                        enemydefence = enemydefence + 1
+                        print("Frank - Stops fighting temporarily, Gains 2 Attack Power & 1 Defence")
+                        time.sleep(3)
+                        break
+                    elif frankAttack == 6:
+                        enemyattack = enemyattack + 3
+                        print("Frank - Recharges Abilities, Gains 3 Attack Power")
+                        time.sleep(3)
+                        break
+                    else:
+                        print("Frank fails his current action.")
+                print("\nEnter A Character To Interact: A - Attack, D - Defend")
                 print("Attack:", attack, "Defence:", defence, "Lives:", lives)
-                print("Enemy Attack:", enemyattack, "Enemy Defence:", enemydefence)
-                print("Enter A Character To Interact: A - Attack, D - Defend")
+                print("Enemy Attack:", enemyattack, "Enemy Defence:", enemydefence, "\n")
                 while 1:
                     input3 = input("> ").upper()
                     if input3 == "A":
@@ -1062,33 +1113,66 @@ _/\_""")
                         while 1:
                             input4 = input("> ")
                             if input4 == "1":
-                                enemydefence - 2
-                                attack - 3
+                                if attack < 3:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(2)
+                                    break
+                                enemydefence = enemydefence - 2
+                                attack = attack - 3
                                 print("Frank - Takes a punch to the face, Loses 2 Defence.")
                                 time.sleep(1)
                                 print(charactername.strip("\n"), "- feels weakened, Loses 2 Attack Power")
-                                time.sleep(1)
+                                time.sleep(3)
                                 break
                             elif input4 == "2":
-                                enemydefence - 1
-                                attack - 1
+                                if attack < 1:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(2)
+                                    break
+                                enemydefence = enemydefence - 1
+                                attack = attack - 1
                                 print("Frank - Gets kicked, Loses 1 Defence.")
                                 time.sleep(1)
                                 print(charactername.strip("\n"), "- feels weakened, Loses 1 Attack Power")
-                                time.sleep(1)
+                                time.sleep(3)
                                 break
                             elif input4 == "3":
-                                enemydefence - 2
-                                attack - 2
+                                if attack < 2:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(2)
+                                    break
+                                enemydefence = enemydefence - 2
+                                attack = attack - 2
                                 print("Frank - Gets barged, Loses 2 Defence.")
                                 time.sleep(1)
                                 print(charactername.strip("\n"), "- feels weakened, Loses 2 Attack Power")
-                                time.sleep(1)
+                                time.sleep(3)
                                 break
                             else:
                                 print("Invalid Input, Please enter 1, 2 or 3...")
                     elif input3 == "D":
                         print("\nDefence Moves:\n1 ) Take Cover [You: +2 Defence +1 Attack]\n2 ) Dodge [You: +1 Defence +2 Attack]\n3 ) Recharge [You: +3 Attack]")
+                        while 1:
+                            input4 = input("> ")
+                            if input4 == "1":
+                                attack = attack + 1
+                                defence = defence + 2
+                                print(charactername.strip("\n"), "- Takes cover, you gain your strength. Gains 1 Attack Power & 2 Defence")
+                                time.sleep(3)
+                                break
+                            elif input4 == "2":
+                                attack = attack + 2
+                                defence = defence + 1
+                                print(charactername.strip("\n"), "- Stops fighting temporarily, Gains 2 Attack Power & 1 Defence")
+                                time.sleep(3)
+                                break
+                            elif input4 == "3":
+                                attack = attack + 3
+                                print(charactername.strip("\n"), "- Recharges Abilities, Gains 3 Attack Power")
+                                time.sleep(3)
+                                break
+                            else:
+                                print("Invalid Input, Please enter 1, 2 or 3...")
                     else:
                         print("Invalid Input, Please enter A or D...")
                     break
