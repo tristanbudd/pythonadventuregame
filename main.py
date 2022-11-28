@@ -46,7 +46,6 @@ def main():
         else:
             print("Invalid Input, Please Try Again.")
 
-
 def newgame():
     x = 25
     y = 10
@@ -96,6 +95,12 @@ def newgame():
         if array[a][b] == " ":
             array[a][b] = "A"
             break
+    while 1:
+        a = random.randrange(2,8)
+        b = random.randrange(2,23)
+        if array[a][b] == " ":
+            array[a][b] = "H"
+            break
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
         csvWriter.writerows(array)
@@ -126,7 +131,6 @@ def newgame():
     print("Loading Characters...")
     time.sleep(1)
     verifyFiles()
-
 
 def verifyFiles():
     a = "charactername="
@@ -325,12 +329,76 @@ def settings():
                 else:
                     print("Invalid Input, Please Try Again.")
         elif input1 == "3":
-            print("test")
+            print("Please select an option to add lives...\n1 ) +1 Lives\n2 ) +2 Lives\n3 ) +3 Lives\n4 ) Cancel Action")
+            while 1:
+                input4 = input("> ")
+                if input4 == "1":
+                    print("+1 Lives Added To Account")
+                    lives = lives + 1
+                    print("Adding To Bundle Of Changes...")
+                    time.sleep(3)
+                    break
+                if input4 == "2":
+                    print("+2 Lives Added To Account")
+                    lives = lives + 2
+                    print("Adding To Bundle Of Changes...")
+                    time.sleep(3)
+                    break
+                if input4 == "3":
+                    print("+3 Lives Added To Account")
+                    lives = lives + 3
+                    print("Adding To Bundle Of Changes...")
+                    time.sleep(3)
+                    break
+                elif input4 == "4":
+                    print("Returning To Settings.")
+                    time.sleep(1)
+                    print("Returning To Settings..")
+                    time.sleep(1)
+                    print("Returning To Settings...")
+                    time.sleep(1)
+                else:
+                    print("Invalid Input, Please Try Again.")
         elif input1 == "4":
-            print("test")
+            print("Generating New Level")
+            for i in range(y):
+                for l in range(x):
+                    array[i][l] = "#"
+            for i in range(y - 1):
+                for l in range(x - 1):
+                    array[i][l] = " "
+            for i in range(1):
+                for l in range(x):
+                    array[i][l] = "#"
+            for i in range(y):
+                for l in range(1):
+                    array[i][l] = "#"
+            array[1][1] = "Y"
+            while 1:
+                a = random.randrange(2, 8)
+                b = random.randrange(2, 23)
+                if array[a][b] == " ":
+                    array[a][b] = "B"
+                    break
+            while 1:
+                a = random.randrange(2, 8)
+                b = random.randrange(2, 23)
+                if array[a][b] == " ":
+                    array[a][b] = "A"
+                    break
+            while 1:
+                a = random.randrange(2, 8)
+                b = random.randrange(2, 23)
+                if array[a][b] == " ":
+                    array[a][b] = "H"
+                    break
+            time.sleep(1)
+            print("Adding To Bundle Of Changes...")
+            time.sleep(3)
         elif input1 == "5":
             f.close()
             gold = int(gold)
+            lives = int(lives)
             charactername = charactername.strip("\n")
             f = open("data.txt", "w")
             f.write("charactername=")
@@ -392,6 +460,10 @@ def moveRight():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0]][findingArray[1] + 1] == "H":
+        print("Entering your house!")
+        time.sleep(1)
+        house()
     if array[findingArray[0]][findingArray[1] + 1] == "A":
         print("Opening Convosation With Adam!")
         time.sleep(1)
@@ -400,6 +472,10 @@ def moveRight():
         print("Opening Convosation With Frank!")
         time.sleep(1)
         frank()
+    if array[findingArray[0]][findingArray[1] + 1] == "J":
+        print("Opening Convosation With Jay!")
+        time.sleep(1)
+        jay()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -433,6 +509,10 @@ def moveLeft():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0]][findingArray[1] - 1] == "H":
+        print("Entering your house!")
+        time.sleep(1)
+        house()
     if array[findingArray[0]][findingArray[1] - 1] == "A":
         print("Opening Convosation With Adam!")
         time.sleep(1)
@@ -441,6 +521,10 @@ def moveLeft():
         print("Opening Convosation With Frank!")
         time.sleep(1)
         frank()
+    if array[findingArray[0]][findingArray[1] - 1] == "J":
+        print("Opening Convosation With Jay!")
+        time.sleep(1)
+        jay()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -474,6 +558,10 @@ def moveUp():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0] - 1][findingArray[1]] == "H":
+        print("Entering your house!")
+        time.sleep(1)
+        house()
     if array[findingArray[0] - 1][findingArray[1]] == "A":
         print("Opening Convosation With Adam!")
         time.sleep(1)
@@ -482,6 +570,10 @@ def moveUp():
         print("Opening Convosation With Frank!")
         time.sleep(1)
         frank()
+    if array[findingArray[0] - 1][findingArray[1]] == "J":
+        print("Opening Convosation With Jay!")
+        time.sleep(1)
+        jay()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -515,6 +607,10 @@ def moveDown():
         print("Entering The Bar!")
         time.sleep(1)
         bar()
+    if array[findingArray[0] + 1][findingArray[1]] == "H":
+        print("Entering your house!")
+        time.sleep(1)
+        house()
     if array[findingArray[0] + 1][findingArray[1]] == "A":
         print("Opening Convosation With Adam!")
         time.sleep(1)
@@ -523,6 +619,10 @@ def moveDown():
         print("Opening Convosation With Frank!")
         time.sleep(1)
         frank()
+    if array[findingArray[0] + 1][findingArray[1]] == "J":
+        print("Opening Convosation With Jay!")
+        time.sleep(1)
+        jay()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -566,7 +666,7 @@ def bar():
 ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝        ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝""")
 
     while 1:
-        print("\nWelcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit | Gold:", gold)
+        print("\nWelcome to the bar,", charactername, "Please select an option:\n1 - Gamble, 2 - Exit, 5 - Talk to Bartender In Private | Gold:", gold)
         input1 = input("> ")
         if input1 == "1":
             print("Please enter the amount you would like to gamble, Must be above 50 or below 250")
@@ -658,6 +758,14 @@ def bar():
                             play()
                         if array[i][l] == "F":
                             print("\n\n\nZack - You have already been here. Go away.")
+                            time.sleep(3)
+                            play()
+                        if array[i][l] == "A":
+                            print("\n\n\nZack - You cheating lol, go talk to Adam.")
+                            time.sleep(3)
+                            play()
+                        if array[i][l] == "G":
+                            print("\n\n\nZack - You are not able to return here.")
                             time.sleep(3)
                             play()
                 print("Zack - So your the new guy everyones talking about, Huh...")
@@ -1104,8 +1212,8 @@ _/\_""")
                     else:
                         print("Frank fails his current action.")
                 print("\nEnter A Character To Interact: A - Attack, D - Defend")
-                print("Attack:", attack, "Defence:", defence, "Lives:", lives)
-                print("Enemy Attack:", enemyattack, "Enemy Defence:", enemydefence, "\n")
+                print("Attack:", attack, "| Defence:", defence, "| Lives:", lives)
+                print("Enemy Attack:", enemyattack, "| Enemy Defence:", enemydefence, "\n")
                 while 1:
                     input3 = input("> ").upper()
                     if input3 == "A":
@@ -1115,7 +1223,7 @@ _/\_""")
                             if input4 == "1":
                                 if attack < 3:
                                     print("Not enough Attack Power, Cancelling Move.")
-                                    time.sleep(2)
+                                    time.sleep(4)
                                     break
                                 enemydefence = enemydefence - 2
                                 attack = attack - 3
@@ -1127,7 +1235,7 @@ _/\_""")
                             elif input4 == "2":
                                 if attack < 1:
                                     print("Not enough Attack Power, Cancelling Move.")
-                                    time.sleep(2)
+                                    time.sleep(4)
                                     break
                                 enemydefence = enemydefence - 1
                                 attack = attack - 1
@@ -1139,7 +1247,7 @@ _/\_""")
                             elif input4 == "3":
                                 if attack < 2:
                                     print("Not enough Attack Power, Cancelling Move.")
-                                    time.sleep(2)
+                                    time.sleep(4)
                                     break
                                 enemydefence = enemydefence - 2
                                 attack = attack - 2
@@ -1176,6 +1284,458 @@ _/\_""")
                     else:
                         print("Invalid Input, Please enter A or D...")
                     break
+        else:
+            print("Invalid Input, Please enter 1, 2 or 3...")
+
+def jay():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+██████████████████████████████████████████████████
+█████████░░░░░░█░░░░░░░░░░░░░░█░░░░░░░░██░░░░░░░░█
+█████████░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀▄▀░░██░░▄▀▄▀░░█
+█████████░░▄▀░░█░░▄▀░░░░░░▄▀░░█░░░░▄▀░░██░░▄▀░░░░█
+█████████░░▄▀░░█░░▄▀░░██░░▄▀░░███░░▄▀▄▀░░▄▀▄▀░░███
+█████████░░▄▀░░█░░▄▀░░░░░░▄▀░░███░░░░▄▀▄▀▄▀░░░░███
+█████████░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█████░░░░▄▀░░░░█████
+█░░░░░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░███████░░▄▀░░███████
+█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░███████░░▄▀░░███████
+█░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░███████░░▄▀░░███████
+█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░███████░░▄▀░░███████
+█░░░░░░░░░░░░░░█░░░░░░██░░░░░░███████░░░░░░███████
+██████████████████████████████████████████████████""")
+
+    print("Jay- What do you want kid?\n1 ) Threaten To Leave\n2 ) Attempt Robbery\n3 ) Fight")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            print(charactername.strip("\n"), "- Your not welcome here Jay, Leave or I will make you...")
+            time.sleep(2)
+            print("Jay - Oh really... A wrap scallion from out of towns going to make me leave huh!")
+            time.sleep(2)
+            print(charactername.strip("\n"), "- If you dont leave you will leave me no choice.")
+            time.sleep(2)
+            print("Jay pushes you over and takes half of your gold.")
+            stolenAmount = gold // 2
+            gold - stolenAmount
+            time.sleep(1)
+            print("\n2 ) Attempt Revenge Robbery\n3 ) Fight")
+        elif input1 == "2":
+            print(charactername.strip("\n"), "- Hey look over there...")
+            time.sleep(1)
+            print("Jay turns around to look what you are pointing at.")
+            time.sleep(2)
+            print("You manage to steal 98 Gold.")
+            gold = gold + 98
+            time.sleep(2)
+            print("Jay - HEY, WHAT WAS THAT FOR!")
+            print("\n3 ) Fight")
+        elif input1 == "3":
+            enemyattack = 5
+            enemydefence = 5
+            attack = 5
+            defence = 6
+            time.sleep(1)
+            print("Begining Fight With Jay...")
+            time.sleep(1)
+            while 1:
+                if defence <= 0:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    print("You have lost the battle ;(")
+                    print("-1 Lives")
+                    lives - 1
+                    time.sleep(2)
+                    print("Jay Leaves Town To Get Medical Care With An Angry Look On His Face...")
+                    time.sleep(5)
+                    f.close()
+                    gold = int(gold)
+                    charactername = charactername.strip("\n")
+                    f = open("data.txt", "w")
+                    f.write("charactername=")
+                    f.write(charactername)
+                    f.write("\n")
+                    f.write("gold=")
+                    f.write('%d' % gold)
+                    f.write("\n")
+                    f.write("lives=")
+                    f.write('%d' % lives)
+                    f.write("\n")
+                    f.close()
+                    # Removing jay from the map
+                    x = 25
+                    y = 10
+                    array = [[0] * x for _ in range(y)]
+                    findingArray = []
+                    with open("map.csv", "r") as c:
+                        reader = csv.reader(c)
+                        array = [row for row in reader]
+
+                    for i in range(len(array)):
+                        for l in range(len(array[i])):
+                            if array[i][l] == "J":
+                                findingArray.append(i)
+                                findingArray.append(l)
+
+                    array[findingArray[0]][findingArray[1]] = " "
+
+                    with open("map.csv", "w", newline="") as c:
+                        csvWriter = csv.writer(c, delimiter=',')
+                        csvWriter.writerows(array)
+                    print("Data Saved, Returning To Main Game")
+                    play()
+                if enemydefence <= 0:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    print("You have won the battle!")
+                    time.sleep(2)
+                    print("Jay Leaves Town In An Ambulance...")
+                    time.sleep(5)
+                    f.close()
+                    gold = int(gold)
+                    charactername = charactername.strip("\n")
+                    f = open("data.txt", "w")
+                    f.write("charactername=")
+                    f.write(charactername)
+                    f.write("\n")
+                    f.write("gold=")
+                    f.write('%d' % gold)
+                    f.write("\n")
+                    f.write("lives=")
+                    f.write('%d' % lives)
+                    f.write("\n")
+                    f.close()
+                    # Removing jay from the map
+                    x = 25
+                    y = 10
+                    array = [[0] * x for _ in range(y)]
+                    findingArray = []
+                    with open("map.csv", "r") as c:
+                        reader = csv.reader(c)
+                        array = [row for row in reader]
+
+                    for i in range(len(array)):
+                        for l in range(len(array[i])):
+                            if array[i][l] == "J":
+                                findingArray.append(i)
+                                findingArray.append(l)
+
+                    array[findingArray[0]][findingArray[1]] = " "
+
+                    with open("map.csv", "w", newline="") as c:
+                        csvWriter = csv.writer(c, delimiter=',')
+                        csvWriter.writerows(array)
+                    print("Data Saved, Returning To Main Game")
+                    play()
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                print("""
+            (`-`)
+            -|-
+            _/\_""")
+                while 1:
+                    jayAttack = random.randrange(1, 6)
+                    if jayAttack == 1:
+                        if enemyattack < 3:
+                            continue
+                        defence = defence - 2
+                        enemyattack = enemyattack - 3
+                        print("Jay - feels weakened, Loses 2 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "- Takes a punch to the face, Loses 2 Defence.")
+                        time.sleep(3)
+                        break
+                    elif jayAttack == 2:
+                        if enemyattack < 1:
+                            continue
+                        defence = defence - 1
+                        enemyattack = enemyattack - 1
+                        print("Jay - feels weakened, Loses 1 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "Gets kicked, Loses 1 Defence.")
+                        time.sleep(3)
+                        break
+                    elif jayAttack == 3:
+                        if enemyattack < 2:
+                            continue
+                        defence = defence - 2
+                        enemyattack = enemyattack - 2
+                        print("Jay - feels weakened, Loses 2 Attack Power")
+                        time.sleep(1)
+                        print(charactername.strip("\n"), "- Gets barged, Loses 2 Defence.")
+                        time.sleep(3)
+                        break
+                    elif jayAttack == 4:
+                        enemyattack = enemyattack + 1
+                        enemydefence = enemydefence + 1
+                        print("Jay - Takes cover, and gains strength. Gains 1 Attack Power & 1 Defence")
+                        time.sleep(3)
+                        break
+                    elif jayAttack == 5:
+                        enemyattack = enemyattack + 2
+                        enemydefence = enemydefence + 1
+                        print("Jay - Stops fighting temporarily, Gains 2 Attack Power & 1 Defence")
+                        time.sleep(3)
+                        break
+                    elif jayAttack == 6:
+                        enemyattack = enemyattack + 3
+                        print("Jay - Recharges Abilities, Gains 3 Attack Power")
+                        time.sleep(3)
+                        break
+                    else:
+                        print("Jay fails his current action.")
+                print("\nEnter A Character To Interact: A - Attack, D - Defend")
+                print("Attack:", attack, "| Defence:", defence, "| Lives:", lives)
+                print("Enemy Attack:", enemyattack, "| Enemy Defence:", enemydefence, "\n")
+                while 1:
+                    input3 = input("> ").upper()
+                    if input3 == "A":
+                        print(
+                            "\nAttack Moves:\n1 ) Punch [Jay: -2 Defence, You: -3 Attack]\n2 ) Kick [Jay: -1 Defence, You: -1 Attack]\n3 ) Barge [Jay: -2 Defence, You: -2 Attack]")
+                        while 1:
+                            input4 = input("> ")
+                            if input4 == "1":
+                                if attack < 3:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(4)
+                                    break
+                                enemydefence = enemydefence - 2
+                                attack = attack - 3
+                                print("Jay - Takes a punch to the face, Loses 2 Defence.")
+                                time.sleep(1)
+                                print(charactername.strip("\n"), "- feels weakened, Loses 2 Attack Power")
+                                time.sleep(3)
+                                break
+                            elif input4 == "2":
+                                if attack < 1:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(4)
+                                    break
+                                enemydefence = enemydefence - 1
+                                attack = attack - 1
+                                print("Jay - Gets kicked, Loses 1 Defence.")
+                                time.sleep(1)
+                                print(charactername.strip("\n"), "- feels weakened, Loses 1 Attack Power")
+                                time.sleep(3)
+                                break
+                            elif input4 == "3":
+                                if attack < 2:
+                                    print("Not enough Attack Power, Cancelling Move.")
+                                    time.sleep(4)
+                                    break
+                                enemydefence = enemydefence - 2
+                                attack = attack - 2
+                                print("Jay - Gets barged, Loses 2 Defence.")
+                                time.sleep(1)
+                                print(charactername.strip("\n"), "- feels weakened, Loses 2 Attack Power")
+                                time.sleep(3)
+                                break
+                            else:
+                                print("Invalid Input, Please enter 1, 2 or 3...")
+                    elif input3 == "D":
+                        print(
+                            "\nDefence Moves:\n1 ) Take Cover [You: +2 Defence +1 Attack]\n2 ) Dodge [You: +1 Defence +2 Attack]\n3 ) Recharge [You: +3 Attack]")
+                        while 1:
+                            input4 = input("> ")
+                            if input4 == "1":
+                                attack = attack + 1
+                                defence = defence + 2
+                                print(charactername.strip("\n"),
+                                      "- Takes cover, you gain your strength. Gains 1 Attack Power & 2 Defence")
+                                time.sleep(3)
+                                break
+                            elif input4 == "2":
+                                attack = attack + 2
+                                defence = defence + 1
+                                print(charactername.strip("\n"),
+                                      "- Stops fighting temporarily, Gains 2 Attack Power & 1 Defence")
+                                time.sleep(3)
+                                break
+                            elif input4 == "3":
+                                attack = attack + 3
+                                print(charactername.strip("\n"), "- Recharges Abilities, Gains 3 Attack Power")
+                                time.sleep(3)
+                                break
+                            else:
+                                print("Invalid Input, Please enter 1, 2 or 3...")
+                    else:
+                        print("Invalid Input, Please enter A or D...")
+                    break
+        else:
+            print("Invalid Input, Please enter 1, 2 or 3...")
+
+def house():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+    ) )        /\
+   =====      /  \
+  _|___|_____/ __ \____________
+ |::::::::::/ |  | \:::::::::::|
+ |:::::::::/  ====  \::::::::::|
+ |::::::::/__________\:::::::::|
+ |_________|  ____  |__________|
+  | ______ | / || \ | _______ |
+  ||  |   || ====== ||   |   ||
+  ||--+---|| |    | ||---+---||
+  ||__|___|| |   o| ||___|___||
+  |========| |____| |=========|
+ (^^-^^^^^-|________|-^^^--^^^)
+ (,, , ,, ,/________\,,,, ,, ,)
+','',,,,' /__________\,,,',',;;""")
+
+    print("Welcome home", charactername.strip("\n"), ", Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            rating = 0
+            tmp = open("feedback.txt", "a")
+            tmp.close()
+            print("How would you rate the game overall: (Out Of 5)")
+            while 1:
+                input2 = input("> ")
+                if input2 == "0":
+                    rating = 0
+                    break
+                elif input2 == "1":
+                    rating = 1
+                    break
+                elif input2 == "2":
+                    rating = 2
+                    break
+                elif input2 == "3":
+                    rating = 3
+                    break
+                elif input2 == "4":
+                    rating = 4
+                    break
+                elif input2 == "5":
+                    rating = 5
+                    break
+                else:
+                    print("Invalid Input, Please enter a number 1-5...")
+            print("How did you find the story (Text Answer):")
+            input3 = input("> ")
+            print("Would you recommend this game to a friend? (Yes or No)")
+            while 1:
+                input4 = input("> ").upper()
+                if input4 == "YES":
+                    recommendToFriend = "Yes"
+                    break
+                elif input4 == "NO":
+                    recommendToFriend = "No"
+                    break
+                else:
+                    print("Invalid Input, Please enter Yes or No.")
+            print("Any Additional Notes (Text Answer):")
+            input5 = input("> ")
+            fb = open("feedback.txt", "w")
+            fb.write("overallRating=")
+            fb.write('%d' % rating)
+            fb.write("\n")
+            fb.write("howFoundStory=")
+            fb.write(input3)
+            fb.write("\n")
+            fb.write("recommendToFriend=")
+            fb.write(recommendToFriend)
+            fb.write("\n")
+            fb.write("additionalNotes=")
+            fb.write(input5)
+            fb.close()
+            time.sleep(3)
+            print("\nThank you for taking part in the survey, It has been saved and sent to the Game Developer.")
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
+        elif input1 == "2":
+            print("""
+█████████████████████████████████████████
+█─▄▄▄─█▄─▄▄▀█▄─▄▄─█▄─▄▄▀█▄─▄█─▄─▄─█─▄▄▄▄█
+█─███▀██─▄─▄██─▄█▀██─██─██─████─███▄▄▄▄─█
+▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀""")
+            time.sleep(2)
+            print("\nGame Developer:")
+            time.sleep(0.5)
+            print("Tristan")
+            time.sleep(2)
+            print("\nGame Ideas:")
+            time.sleep(0.5)
+            print("Zane")
+            time.sleep(0.5)
+            print("AJ")
+            time.sleep(0.5)
+            print("Markus")
+            time.sleep(2)
+            print("\nDevelopment Support:")
+            time.sleep(0.5)
+            print("AJ")
+            time.sleep(5)
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
+        elif input1 == "3":
+            print("Leaving Home.")
+            time.sleep(1)
+            print("Leaving Home..")
+            time.sleep(1)
+            print("Leaving Home..")
+            time.sleep(1)
+            f.close()
+            gold = int(gold)
+            charactername = charactername.strip("\n")
+            f = open("data.txt", "w")
+            f.write("charactername=")
+            f.write(charactername)
+            f.write("\n")
+            f.write("gold=")
+            f.write('%d' % gold)
+            f.write("\n")
+            f.write("lives=")
+            f.write('%d' % lives)
+            f.write("\n")
+            f.close()
+            print("Data Saved, Returning To Main Game")
+            time.sleep(1)
+            play()
         else:
             print("Invalid Input, Please enter 1, 2 or 3...")
 
