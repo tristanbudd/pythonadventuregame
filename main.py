@@ -150,8 +150,48 @@ def verifyFiles():
 def play():
     x = 25
     y = 10
+    judgement = 0
     array = [[0] * x for _ in range(y)]
 
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+
+    while 1:
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "Z":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "J":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "F":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "G":
+                    judgement = judgement + 1
+                    break
+
+        if judgement <= 0:
+            while 1:
+                a = random.randrange(2, 8)
+                b = random.randrange(2, 23)
+                if array[a][b] == " ":
+                    array[a][b] = "G"
+                    break
+
+        with open("map.csv", "w", newline="") as c:
+            csvWriter = csv.writer(c)
+            csvWriter.writerows(array)
+
+        break
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
     charactername = "Error"
@@ -476,6 +516,10 @@ def moveRight():
         print("Opening Convosation With Jay!")
         time.sleep(1)
         jay()
+    if array[findingArray[0]][findingArray[1] + 1] == "Z":
+        print("Opening Convosation With Zane!")
+        time.sleep(1)
+        zane()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -525,6 +569,10 @@ def moveLeft():
         print("Opening Convosation With Jay!")
         time.sleep(1)
         jay()
+    if array[findingArray[0]][findingArray[1] - 1] == "Z":
+        print("Opening Convosation With Zane!")
+        time.sleep(1)
+        zane()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -574,6 +622,10 @@ def moveUp():
         print("Opening Convosation With Jay!")
         time.sleep(1)
         jay()
+    if array[findingArray[0] - 1][findingArray[1]] == "Z":
+        print("Opening Convosation With Zane!")
+        time.sleep(1)
+        zane()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -623,6 +675,10 @@ def moveDown():
         print("Opening Convosation With Jay!")
         time.sleep(1)
         jay()
+    if array[findingArray[0] + 1][findingArray[1]] == "Z":
+        print("Opening Convosation With Zane!")
+        time.sleep(1)
+        zane()
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -1015,51 +1071,54 @@ def frank():
                     print("\n3 ) Fight")
                     break
                 elif input2 == "3":
-                    print("Frank - Fine, That will probably be enough. Goodbye...")
-                    time.sleep(3)
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                    time.sleep(2)
-                    print("Frank Leaves Town...")
-                    gold = 0
-                    time.sleep(3)
-                    f.close()
-                    gold = int(gold)
-                    charactername = charactername.strip("\n")
-                    f = open("data.txt", "w")
-                    f.write("charactername=")
-                    f.write(charactername)
-                    f.write("\n")
-                    f.write("gold=")
-                    f.write('%d' % gold)
-                    f.write("\n")
-                    f.write("lives=")
-                    f.write('%d' % lives)
-                    f.write("\n")
-                    f.close()
-                    # Removing frank from the map
-                    x = 25
-                    y = 10
-                    array = [[0] * x for _ in range(y)]
-                    findingArray = []
-                    with open("map.csv", "r") as c:
-                        reader = csv.reader(c)
-                        array = [row for row in reader]
+                    if gold > 500:
+                        print("Frank - Fine, That will probably be enough. Goodbye...")
+                        time.sleep(3)
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        time.sleep(2)
+                        print("Frank Leaves Town...")
+                        gold = 0
+                        time.sleep(3)
+                        f.close()
+                        gold = int(gold)
+                        charactername = charactername.strip("\n")
+                        f = open("data.txt", "w")
+                        f.write("charactername=")
+                        f.write(charactername)
+                        f.write("\n")
+                        f.write("gold=")
+                        f.write('%d' % gold)
+                        f.write("\n")
+                        f.write("lives=")
+                        f.write('%d' % lives)
+                        f.write("\n")
+                        f.close()
+                        # Removing frank from the map
+                        x = 25
+                        y = 10
+                        array = [[0] * x for _ in range(y)]
+                        findingArray = []
+                        with open("map.csv", "r") as c:
+                            reader = csv.reader(c)
+                            array = [row for row in reader]
 
-                    for i in range(len(array)):
-                        for l in range(len(array[i])):
-                            if array[i][l] == "F":
-                                findingArray.append(i)
-                                findingArray.append(l)
+                        for i in range(len(array)):
+                            for l in range(len(array[i])):
+                                if array[i][l] == "F":
+                                    findingArray.append(i)
+                                    findingArray.append(l)
 
-                    array[findingArray[0]][findingArray[1]] = " "
+                        array[findingArray[0]][findingArray[1]] = " "
 
-                    with open("map.csv", "w", newline="") as c:
-                        csvWriter = csv.writer(c, delimiter=',')
-                        csvWriter.writerows(array)
-                    print("Data Saved, Returning To Main Game")
-                    play()
-                else:
-                    print("Invalid Input, Please enter 1, 2 or 3...")
+                        with open("map.csv", "w", newline="") as c:
+                            csvWriter = csv.writer(c, delimiter=',')
+                            csvWriter.writerows(array)
+                        print("Data Saved, Returning To Main Game")
+                        play()
+                    else:
+                        print("Still not enough buddy...")
+                        print("\n3 ) Fight")
+                        break
         elif input1 == "3":
             enemyattack = 3
             enemydefence = 4
@@ -1327,7 +1386,7 @@ def jay():
 █░░░░░░░░░░░░░░█░░░░░░██░░░░░░███████░░░░░░███████
 ██████████████████████████████████████████████████""")
 
-    print("Jay- What do you want kid?\n1 ) Threaten To Leave\n2 ) Attempt Robbery\n3 ) Fight")
+    print("Jay - What do you want kid?\n1 ) Threaten To Leave\n2 ) Attempt Robbery\n3 ) Fight")
     while 1:
         input1 = input("> ")
         if input1 == "1":
@@ -1582,6 +1641,271 @@ def jay():
                     break
         else:
             print("Invalid Input, Please enter 1, 2 or 3...")
+
+def zane():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+█████████████████████████████████████████████████████████████████████████
+█░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░█░░░░░░██████████░░░░░░█░░░░░░░░░░░░░░█
+█░░▄▀▄▀▄▀▄▀▄▀▄▀▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░░░░░░░░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█
+█░░░░░░░░░░░░▄▀▄▀░░█░░▄▀░░░░░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█
+█████████░░░░▄▀░░░░█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░██░░▄▀░░█░░▄▀░░█████████
+███████░░░░▄▀░░░░███░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█
+█████░░░░▄▀░░░░█████░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█
+███░░░░▄▀░░░░███████░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█
+█░░░░▄▀░░░░█████████░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░░░░░▄▀░░█░░▄▀░░█████████
+█░░▄▀▄▀░░░░░░░░░░░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░░░░░░░░░█
+█░░▄▀▄▀▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░░░░░░░░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█
+█░░░░░░░░░░░░░░░░░░█░░░░░░██░░░░░░█░░░░░░██████████░░░░░░█░░░░░░░░░░░░░░█
+█████████████████████████████████████████████████████████████████████████""")
+
+    x = 25
+    y = 10
+    array = [[0] * x for _ in range(y)]
+    findingArray = []
+    findingArray2 = []
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+    print("Zane - I saw what you did?\n1 ) What did I do?")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            print(charactername.strip("\n"), "- What did I do?")
+            time.sleep(2)
+            print("Zane - I saw you talking to the bartender, I know your a threat to our gang...")
+            time.sleep(2)
+            print("\n1 ) Calm Down\n2 ) Didnt Ask")
+            while 1:
+                input2 = input("> ")
+                if input2 == "1":
+                    print(charactername.strip("\n"), "- You need to calm down...")
+                    time.sleep(2)
+                    print("Zane - I WILL NOT CALM DOWN, YOU ARE HERE TO TRY AND MAKE ME LEAVE")
+                    time.sleep(2)
+                    print("\n1 ) I Will Make You Leave\n2 ) Im not sure what your talking about...")
+                    while 1:
+                        input3 = input("> ")
+                        if input3 == "1":
+                            print(charactername.strip("\n"), "- Thats exactly what Im planning to do...")
+                            time.sleep(2)
+                            print("Zane - THAT WILL NEVER HAPPEN")
+                            time.sleep(2)
+                            print("Zane - THIS IS MY TOWN!!!")
+                            break
+                        elif input3 == "2":
+                            print(charactername.strip("\n"), "- Im not sure what your talking about...")
+                            time.sleep(2)
+                            print("Zane - LIAR!")
+                            time.sleep(2)
+                            print("\n1 ) Im not lying!\n2 ) Fine, I was lying. You need to leave...")
+                            while 1:
+                                input4 = input("> ")
+                                if input4 == "1":
+                                    print(charactername.strip("\n"), "- Im not lying!")
+                                    time.sleep(2)
+                                    print("Zane - LIAR! THATS IT!")
+                                    break
+                                elif input4 == "2":
+                                    print(charactername.strip("\n"), "- Fine, I was Lying. You need to leave...")
+                                    time.sleep(2)
+                                    print("Zane - Finally You admit it. You Wrap Scallion.")
+                                    break
+                                else:
+                                    print("Invalid Input, Please enter 1 or 2")
+                            break
+                        else:
+                            print("Invalid Input, Please enter 1 or 2...")
+                    break
+                elif input2 == "2":
+                    print(charactername.strip("\n"), "- Didnt Ask")
+                    time.sleep(2)
+                    print("Zane - EXCUSE ME!")
+                    time.sleep(2)
+                    print(charactername.strip("\n"), "- You Heard Me...")
+                    time.sleep(2)
+                    print("Zane - I see how it is, Last Time someone said that I blew up their house...")
+                    time.sleep(2)
+                    print("\n1 ) Really?\n2 ) Didnt ask")
+                    while 1:
+                        input5 = input("> ")
+                        if input5 == "1":
+                            print(charactername.strip("\n"), "- Really?")
+                            time.sleep(2)
+                            print("Zane - I dont say things twice!, I blew up his home and made sure he never returned...")
+                            time.sleep(2)
+                            print("\n1 ) Can you repeat that please...\n2 ) Okay Then...")
+                            while 1:
+                                input6 = input("> ")
+                                if input6 == "1":
+                                    print(charactername.strip("\n"), "- Can you repeat that please?")
+                                    time.sleep(2)
+                                    print("Zane - NO")
+                                    break
+                                elif input6 == "2":
+                                    print(charactername.strip("\n"), "- Okay then...")
+                                    time.sleep(2)
+                                    print("Zane - ...")
+                                    break
+                                else:
+                                    print("Invalid Input, Please enter 1 or 2...")
+                                break
+                            break
+                        elif input5 == "2":
+                            print(charactername.strip("\n"), "- Didnt Ask")
+                            time.sleep(2)
+                            print("Zane - THATS IT!")
+                            break
+                        else:
+                            print("Invalid Input, Please enter 1 or 2...")
+                    break
+                else:
+                    print("Invalid Input, Please Enter 1, 2 or 3...")
+            time.sleep(3)
+            print("Zane - Guess what :)")
+            time.sleep(2)
+            print(charactername.strip("\n"), "- What?")
+            time.sleep(2)
+            print("Zane - I stopped by your house earlier...")
+            print("\n1 ) WHAT DID YOU DO?")
+            while 1:
+                input7 = input("> ")
+                if input7 == "1":
+                    break
+                else:
+                    print("Invalid Input, Please Try Again...")
+            time.sleep(1)
+            print("Zane - I well, you know. Put an explosive in your boiler.")
+            time.sleep(2)
+            print("\n1 ) Your Lying!\n2 ) Dont you even think about it...")
+            while 1:
+                input8 = input("> ")
+                if input8 == "1":
+                    print(charactername.strip("\n"), "- Your Lying!")
+                    time.sleep(2)
+                    print("Zane pulls out a detonator")
+                    time.sleep(2)
+                    print("Zane - Lying Now, Hahahahaha")
+                    break
+                elif input8 == "2":
+                    print(charactername.strip("\n"), "- Dont you even think about it...")
+                    time.sleep(2)
+                    print("Zane pulls out a detonator")
+                    time.sleep(2)
+                    print("Zane - And whys that?")
+                    print("\n1 ) Truth\n2 ) Lie")
+                    while 1:
+                        input9 = input("> ")
+                        if input9 == "1":
+                            print(charactername.strip("\n"), "- Look I dont have anything at home but that house means so much to me, please dont do it...")
+                            time.sleep(2)
+                            print("Zane - Hmmm...")
+                            break
+                        elif input9 == "2":
+                            print(charactername.strip("\n"), "- I have a pet Elephant at home, Please dont do this...")
+                            time.sleep(2)
+                            print("Zane - Really? Well I will take that in to consideration ;/")
+                            break
+                        else:
+                            print("Invalid Input, Please enter 1 or 2...")
+                    break
+                else:
+                    print("Invalid Input, Please Enter 1 or 2...")
+            time.sleep(2)
+            print("Zane - I tell you what...")
+            time.sleep(2)
+            print("\n1 ) What?")
+            while 1:
+                input10 = input("> ")
+                if input10 == "1":
+                    break
+                else:
+                    print("Invalid Input, Please Try Again...")
+            time.sleep(2)
+            print("Zane - Pass me all your gold, And I wont destroy it...")
+            time.sleep(2)
+            print("\n1 ) Give Zane All Gold\n2 ) Dont Give It")
+            while 1:
+                input11 = input("> ")
+                if input11 == "1":
+                    gold = 0
+                    time.sleep(2)
+                    print("Zane snatches all the gold from your hands")
+                    time.sleep(3)
+                    break
+                elif input11 == "2":
+                    time.sleep(2)
+                    print("Your house gets destroyed, It has been removed from the map...")
+                    for i in range(len(array)):
+                        for l in range(len(array[i])):
+                            if array[i][l] == "H":
+                                findingArray2.append(i)
+                                findingArray2.append(l)
+
+                    array[findingArray2[0]][findingArray2[1]] = " "
+                    time.sleep(3)
+                    break
+                else:
+                    print("Invalid Input, Please Try Again...")
+        else:
+            print("Invalid Input, Please Try Again...")
+            continue
+
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        time.sleep(2)
+        print("Zane runs away out of town...")
+        time.sleep(5)
+        f.close()
+        gold = int(gold)
+        charactername = charactername.strip("\n")
+        f = open("data.txt", "w")
+        f.write("charactername=")
+        f.write(charactername)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
+        f.write("\n")
+        f.close()
+        # Removing zane from the map
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "Z":
+                    findingArray.append(i)
+                    findingArray.append(l)
+
+        array[findingArray[0]][findingArray[1]] = " "
+
+        with open("map.csv", "w", newline="") as c:
+            csvWriter = csv.writer(c, delimiter=',')
+            csvWriter.writerows(array)
+        print("Data Saved, Returning To Main Game")
+        play()
 
 def house():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
