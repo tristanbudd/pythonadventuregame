@@ -1057,7 +1057,7 @@ _/\_""")
                 while 1:
                     input3 = input("> ")
                     if input3 == "A":
-                        print("\nAttack Moves:\n1 ) Punch [Frank: -2 Defence, You: -3 Attack]\n2 ) Kick [Frank: -1 Defence, You: -1 Attack]\n3 ) Barge [Frank: -2 Defence")
+                        print("\nAttack Moves:\n1 ) Punch [Frank: -2 Defence, You: -3 Attack]\n2 ) Kick [Frank: -1 Defence, You: -1 Attack]\n3 ) Barge [Frank: -1 Defence, You: -1 Attack]")
                     elif input3 == "D":
                         print("Defend")
                     else:
