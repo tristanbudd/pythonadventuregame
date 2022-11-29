@@ -2098,6 +2098,7 @@ def house():
             fb.close()
             time.sleep(3)
             print("\nThank you for taking part in the survey, It has been saved and sent to the Game Developer.")
+            time.sleep(3)
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
         elif input1 == "2":
@@ -2348,13 +2349,12 @@ def bridge():
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
-    array[1][5] = "#"
-    array[2][5] = "#"
-    array[3][5] = "#"
-    array[1][16] = "#"
-    array[2][16] = "#"
-    array[3][16] = "#"
+    array[1][6] = "#"
+    array[2][6] = "#"
     array[3][6] = "#"
+    array[1][17] = "#"
+    array[2][17] = "#"
+    array[3][17] = "#"
     array[3][7] = "#"
     array[3][8] = "#"
     array[3][9] = "#"
@@ -2364,23 +2364,24 @@ def bridge():
     array[3][13] = "#"
     array[3][14] = "#"
     array[3][15] = "#"
-    array[1][6] = "T"
-    array[1][7] = "H"
-    array[1][8] = "A"
-    array[1][9] = "N"
-    array[1][10] = "K"
-    array[1][11] = "S"
-    array[1][13] = "F"
-    array[1][14] = "O"
-    array[1][15] = "R"
-    array[2][8] = "P"
-    array[2][9] = "L"
-    array[2][10] = "AY"
-    array[2][11] = ""
-    array[2][12] = "I"
-    array[2][13] = "N"
-    array[2][14] = "G"
-    array[6][10] = "H"
+    array[3][16] = "#"
+    array[1][7] = "T"
+    array[1][8] = "H"
+    array[1][9] = "A"
+    array[1][10] = "N"
+    array[1][11] = "K"
+    array[1][12] = "S"
+    array[1][14] = "F"
+    array[1][15] = "O"
+    array[1][16] = "R"
+    array[2][9] = "P"
+    array[2][10] = "L"
+    array[2][11] = "AY"
+    array[2][12] = ""
+    array[2][13] = "I"
+    array[2][14] = "N"
+    array[2][15] = "G"
+    array[6][11] = "H"
 
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c, delimiter=',')
