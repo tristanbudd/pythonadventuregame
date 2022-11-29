@@ -39,6 +39,7 @@ def main():
             print("Loading Characters...")
             time.sleep(1)
             verifyFiles()
+            play()
         elif input1 == "3":
             settings()
         elif input1 == "4":
@@ -161,7 +162,6 @@ def verifyFiles():
     f.close()
     time.sleep(1)
     main()
-
 def play():
     judgement = 0
     array = [[0] * 25 for _ in range(10)]
@@ -467,7 +467,19 @@ def settings():
             print("Adding To Bundle Of Changes...")
             time.sleep(3)
         elif input1 == "5":
-            saveFiles(charactername, gold, lives)
+            f = open("data.txt", "w")
+            gold = int(gold)
+            lives = int(lives)
+            f.write("charactername=")
+            f.write(charactername)
+            f.write("\n")
+            f.write("gold=")
+            f.write('%d' % gold)
+            f.write("\n")
+            f.write("lives=")
+            f.write('%d' % lives)
+            f.write("\n")
+            f.close()
             with open("map.csv", "w", newline="") as c:
                 csvWriter = csv.writer(c)
                 csvWriter.writerows(array)
@@ -543,6 +555,10 @@ def moveRight():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0]][findingArray[1] + 1] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0]][findingArray[1] + 1] == "T":
         f = open("data.txt", "rt")
 
@@ -636,6 +652,10 @@ def moveLeft():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0]][findingArray[1] - 1] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0]][findingArray[1] - 1] == "T":
         f = open("data.txt", "rt")
 
@@ -729,6 +749,10 @@ def moveUp():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0] - 1][findingArray[1]] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0] - 1][findingArray[1]] == "T":
         f = open("data.txt", "rt")
 
@@ -822,6 +846,10 @@ def moveDown():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0] + 1][findingArray[1]] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0] + 1][findingArray[1]] == "T":
         f = open("data.txt", "rt")
 
@@ -2091,9 +2119,11 @@ def house():
             time.sleep(0.5)
             print("Markus")
             time.sleep(2)
-            print("\nDevelopment Support:")
+            print("\nPlay Testing:")
             time.sleep(0.5)
             print("AJ")
+            time.sleep(0.5)
+            print("Brendon")
             time.sleep(5)
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
@@ -2296,6 +2326,71 @@ def sam():
             print("Returning to map...")
             time.sleep(1)
             play()
+
+def bridge():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    array = [[0] * 25 for _ in range(10)]
+    findingArray = []
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+
+    for i in range(10):
+        for l in range(25):
+            array[i][l] = "#"
+    for i in range(10 - 1):
+        for l in range(25 - 1):
+            array[i][l] = " "
+    for i in range(1):
+        for l in range(25):
+            array[i][l] = "#"
+    for i in range(10):
+        for l in range(1):
+            array[i][l] = "#"
+    array[1][1] = "Y"
+    array[1][5] = "#"
+    array[2][5] = "#"
+    array[3][5] = "#"
+    array[1][16] = "#"
+    array[2][16] = "#"
+    array[3][16] = "#"
+    array[3][6] = "#"
+    array[3][7] = "#"
+    array[3][8] = "#"
+    array[3][9] = "#"
+    array[3][10] = "#"
+    array[3][11] = "#"
+    array[3][12] = "#"
+    array[3][13] = "#"
+    array[3][14] = "#"
+    array[3][15] = "#"
+    array[1][6] = "T"
+    array[1][7] = "H"
+    array[1][8] = "A"
+    array[1][9] = "N"
+    array[1][10] = "K"
+    array[1][11] = "S"
+    array[1][13] = "F"
+    array[1][14] = "O"
+    array[1][15] = "R"
+    array[2][8] = "P"
+    array[2][9] = "L"
+    array[2][10] = "AY"
+    array[2][11] = ""
+    array[2][12] = "I"
+    array[2][13] = "N"
+    array[2][14] = "G"
+    array[6][10] = "H"
+
+    with open("map.csv", "w", newline="") as c:
+        csvWriter = csv.writer(c, delimiter=',')
+        csvWriter.writerows(array)
+
+    print("Sam - You made it!, We built you a new house after what happened...")
+    time.sleep(2)
+    print("Sam - Enjoy yourself and most of all Thanks for Playing!")
+    time.sleep(3)
+    play()
 
 if __name__ == "__main__":
     main()
