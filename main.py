@@ -46,6 +46,21 @@ def main():
         else:
             print("Invalid Input, Please Try Again.")
 
+def saveFiles(charactername, gold, lives):
+    f = open("data.txt", "w")
+    gold = int(gold)
+    lives = int(lives)
+    f.write("charactername=")
+    charactername.strip("\n")
+    f.write(charactername)
+    f.write("gold=")
+    f.write('%d' % gold)
+    f.write("\n")
+    f.write("lives=")
+    f.write('%d' % lives)
+    f.write("\n")
+    f.close()
+
 def newgame():
     array = [[0] * 25 for _ in range(10)]
     print("What would you like to call your character?")
@@ -110,6 +125,8 @@ def newgame():
     time.sleep(1)
     print("Saving Level To Data...")
     f = open("data.txt", "w")
+    gold = int(gold)
+    lives = int(lives)
     f.write("charactername=")
     f.write(input1)
     f.write("\n")
@@ -176,7 +193,22 @@ def play():
                     break
         for i in range(len(array)):
             for l in range(len(array[i])):
+                if array[i][l] == "A":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
                 if array[i][l] == "S":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "H":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "|":
                     judgement = judgement + 1
                     break
 
@@ -435,11 +467,9 @@ def settings():
             print("Adding To Bundle Of Changes...")
             time.sleep(3)
         elif input1 == "5":
-            f.close()
+            f = open("data.txt", "w")
             gold = int(gold)
             lives = int(lives)
-            charactername = charactername.strip("\n")
-            f = open("data.txt", "w")
             f.write("charactername=")
             f.write(charactername)
             f.write("\n")
@@ -525,6 +555,10 @@ def moveRight():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0]][findingArray[1] + 1] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0]][findingArray[1] + 1] == "T":
         f = open("data.txt", "rt")
 
@@ -557,20 +591,7 @@ def moveRight():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        f.close()
-        gold = int(gold)
-        charactername = charactername.strip("\n")
-        f = open("data.txt", "w")
-        f.write("charactername=")
-        f.write(charactername)
-        f.write("\n")
-        f.write("gold=")
-        f.write('%d' % gold)
-        f.write("\n")
-        f.write("lives=")
-        f.write('%d' % lives)
-        f.write("\n")
-        f.close()
+        saveFiles(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -631,6 +652,10 @@ def moveLeft():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0]][findingArray[1] - 1] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0]][findingArray[1] - 1] == "T":
         f = open("data.txt", "rt")
 
@@ -663,20 +688,7 @@ def moveLeft():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        f.close()
-        gold = int(gold)
-        charactername = charactername.strip("\n")
-        f = open("data.txt", "w")
-        f.write("charactername=")
-        f.write(charactername)
-        f.write("\n")
-        f.write("gold=")
-        f.write('%d' % gold)
-        f.write("\n")
-        f.write("lives=")
-        f.write('%d' % lives)
-        f.write("\n")
-        f.close()
+        saveFiles(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -737,6 +749,10 @@ def moveUp():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0] - 1][findingArray[1]] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0] - 1][findingArray[1]] == "T":
         f = open("data.txt", "rt")
 
@@ -769,20 +785,7 @@ def moveUp():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        f.close()
-        gold = int(gold)
-        charactername = charactername.strip("\n")
-        f = open("data.txt", "w")
-        f.write("charactername=")
-        f.write(charactername)
-        f.write("\n")
-        f.write("gold=")
-        f.write('%d' % gold)
-        f.write("\n")
-        f.write("lives=")
-        f.write('%d' % lives)
-        f.write("\n")
-        f.close()
+        saveFiles(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -843,6 +846,10 @@ def moveDown():
         print("Opening Convosation With Sam!")
         time.sleep(1)
         sam()
+    if array[findingArray[0] + 1][findingArray[1]] == "|":
+        print("You have crossed the bridge...")
+        time.sleep(3)
+        bridge()
     if array[findingArray[0] + 1][findingArray[1]] == "T":
         f = open("data.txt", "rt")
 
@@ -875,20 +882,7 @@ def moveDown():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        f.close()
-        gold = int(gold)
-        charactername = charactername.strip("\n")
-        f = open("data.txt", "w")
-        f.write("charactername=")
-        f.write(charactername)
-        f.write("\n")
-        f.write("gold=")
-        f.write('%d' % gold)
-        f.write("\n")
-        f.write("lives=")
-        f.write('%d' % lives)
-        f.write("\n")
-        f.close()
+        saveFiles(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -985,20 +979,7 @@ def bar():
                 print("+ ", input2, " gold.")
                 gold = gold + input2
         elif input1 == "2":
-            f.close()
-            gold = int(gold)
-            charactername = charactername.strip("\n")
-            f = open("data.txt", "w")
-            f.write("charactername=")
-            f.write(charactername)
-            f.write("\n")
-            f.write("gold=")
-            f.write('%d' % gold)
-            f.write("\n")
-            f.write("lives=")
-            f.write('%d' % lives)
-            f.write("\n")
-            f.close()
+            saveFiles(charactername, gold, lives)
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
@@ -1033,6 +1014,10 @@ def bar():
                             time.sleep(3)
                             play()
                         if array[i][l] == "S":
+                            print("\n\n\nZack - You are not able to return here.")
+                            time.sleep(3)
+                            play()
+                        if array[i][l] == "|":
                             print("\n\n\nZack - You are not able to return here.")
                             time.sleep(3)
                             play()
@@ -1092,20 +1077,7 @@ def bar():
                 time.sleep(2)
                 print("You get kicked out the bar...")
                 time.sleep(2)
-                f.close()
-                gold = int(gold)
-                charactername = charactername.strip("\n")
-                f = open("data.txt", "w")
-                f.write("charactername=")
-                f.write(charactername)
-                f.write("\n")
-                f.write("gold=")
-                f.write('%d' % gold)
-                f.write("\n")
-                f.write("lives=")
-                f.write('%d' % lives)
-                f.write("\n")
-                f.close()
+                saveFiles(charactername, gold, lives)
                 print("Data Saved, Returning To Main Game")
                 time.sleep(1)
                 play()
@@ -1170,20 +1142,7 @@ def adam():
             print("Adam - Good Luck...")
             print("Adam walks out of town into the fog...")
             time.sleep(3)
-            f.close()
-            gold = int(gold)
-            charactername = charactername.strip("\n")
-            f = open("data.txt", "w")
-            f.write("charactername=")
-            f.write(charactername)
-            f.write("\n")
-            f.write("gold=")
-            f.write('%d' % gold)
-            f.write("\n")
-            f.write("lives=")
-            f.write('%d' % lives)
-            f.write("\n")
-            f.close()
+            saveFiles(charactername, gold, lives)
             # Removing adam from the map
             array = [[0] * 25 for _ in range(10)]
             findingArray = []
@@ -1289,20 +1248,7 @@ def frank():
                         print("Frank Leaves Town...")
                         gold = 0
                         time.sleep(3)
-                        f.close()
-                        gold = int(gold)
-                        charactername = charactername.strip("\n")
-                        f = open("data.txt", "w")
-                        f.write("charactername=")
-                        f.write(charactername)
-                        f.write("\n")
-                        f.write("gold=")
-                        f.write('%d' % gold)
-                        f.write("\n")
-                        f.write("lives=")
-                        f.write('%d' % lives)
-                        f.write("\n")
-                        f.close()
+                        saveFiles(charactername, gold, lives)
                         # Removing frank from the map
                         array = [[0] * 25 for _ in range(10)]
                         findingArray = []
@@ -1344,20 +1290,7 @@ def frank():
                     time.sleep(2)
                     print("Frank Decides To Leave Town & Get Medical Care...")
                     time.sleep(5)
-                    f.close()
-                    gold = int(gold)
-                    charactername = charactername.strip("\n")
-                    f = open("data.txt", "w")
-                    f.write("charactername=")
-                    f.write(charactername)
-                    f.write("\n")
-                    f.write("gold=")
-                    f.write('%d' % gold)
-                    f.write("\n")
-                    f.write("lives=")
-                    f.write('%d' % lives)
-                    f.write("\n")
-                    f.close()
+                    saveFiles(charactername, gold, lives)
                     # Removing frank from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1384,20 +1317,7 @@ def frank():
                     time.sleep(2)
                     print("Frank Leaves Town Having Sustained Bad Injuries...")
                     time.sleep(5)
-                    f.close()
-                    gold = int(gold)
-                    charactername = charactername.strip("\n")
-                    f = open("data.txt", "w")
-                    f.write("charactername=")
-                    f.write(charactername)
-                    f.write("\n")
-                    f.write("gold=")
-                    f.write('%d' % gold)
-                    f.write("\n")
-                    f.write("lives=")
-                    f.write('%d' % lives)
-                    f.write("\n")
-                    f.close()
+                    saveFiles(charactername, gold, lives)
                     # Removing frank from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1632,20 +1552,7 @@ def jay():
                     time.sleep(2)
                     print("Jay Leaves Town To Get Medical Care With An Angry Look On His Face...")
                     time.sleep(5)
-                    f.close()
-                    gold = int(gold)
-                    charactername = charactername.strip("\n")
-                    f = open("data.txt", "w")
-                    f.write("charactername=")
-                    f.write(charactername)
-                    f.write("\n")
-                    f.write("gold=")
-                    f.write('%d' % gold)
-                    f.write("\n")
-                    f.write("lives=")
-                    f.write('%d' % lives)
-                    f.write("\n")
-                    f.close()
+                    saveFiles(charactername, gold, lives)
                     # Removing jay from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1672,20 +1579,7 @@ def jay():
                     time.sleep(2)
                     print("Jay Leaves Town In An Ambulance...")
                     time.sleep(5)
-                    f.close()
-                    gold = int(gold)
-                    charactername = charactername.strip("\n")
-                    f = open("data.txt", "w")
-                    f.write("charactername=")
-                    f.write(charactername)
-                    f.write("\n")
-                    f.write("gold=")
-                    f.write('%d' % gold)
-                    f.write("\n")
-                    f.write("lives=")
-                    f.write('%d' % lives)
-                    f.write("\n")
-                    f.close()
+                    saveFiles(charactername, gold, lives)
                     # Removing jay from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -2052,6 +1946,15 @@ def zane():
                     gold = 0
                     time.sleep(2)
                     print("Zane snatches all the gold from your hands")
+                    time.sleep(2)
+                    print("Zane decides to destroy your house anyways..., It has been removed from the map...")
+                    for i in range(len(array)):
+                        for l in range(len(array[i])):
+                            if array[i][l] == "H":
+                                findingArray2.append(i)
+                                findingArray2.append(l)
+
+                    array[findingArray2[0]][findingArray2[1]] = " "
                     time.sleep(3)
                     break
                 elif input11 == "2":
@@ -2076,20 +1979,7 @@ def zane():
         time.sleep(2)
         print("Zane runs away out of town...")
         time.sleep(5)
-        f.close()
-        gold = int(gold)
-        charactername = charactername.strip("\n")
-        f = open("data.txt", "w")
-        f.write("charactername=")
-        f.write(charactername)
-        f.write("\n")
-        f.write("gold=")
-        f.write('%d' % gold)
-        f.write("\n")
-        f.write("lives=")
-        f.write('%d' % lives)
-        f.write("\n")
-        f.close()
+        saveFiles(charactername, gold, lives)
         # Removing zane from the map
         for i in range(len(array)):
             for l in range(len(array[i])):
@@ -2131,6 +2021,7 @@ def house():
     f.close()
 
     print("""
+
     ) )        /\
    =====      /  \
   _|___|_____/ __ \____________
@@ -2241,20 +2132,7 @@ def house():
             time.sleep(1)
             print("Leaving Home..")
             time.sleep(1)
-            f.close()
-            gold = int(gold)
-            charactername = charactername.strip("\n")
-            f = open("data.txt", "w")
-            f.write("charactername=")
-            f.write(charactername)
-            f.write("\n")
-            f.write("gold=")
-            f.write('%d' % gold)
-            f.write("\n")
-            f.write("lives=")
-            f.write('%d' % lives)
-            f.write("\n")
-            f.close()
+            saveFiles(charactername, gold, lives)
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
@@ -2319,6 +2197,8 @@ def greg():
     time.sleep(3)
     print("Greg - I also have something else for you, Were looking to build a new bridge to the next town...")
     time.sleep(3)
+    print("Greg - Well... Those thugs destroyed it on their way out...")
+    time.sleep(3)
     print("Greg - Cut down about 4 trees and I will give you 50 gold for each one, after that look for my friend Sam...")
     time.sleep(3)
     print("\n1 ) Accept and Leave")
@@ -2365,20 +2245,7 @@ def greg():
         csvWriter.writerows(array)
     time.sleep(1)
     print("Greg disappears into one of the nearby houses...")
-    f.close()
-    gold = int(gold)
-    charactername = charactername.strip("\n")
-    f = open("data.txt", "w")
-    f.write("charactername=")
-    f.write(charactername)
-    f.write("\n")
-    f.write("gold=")
-    f.write('%d' % gold)
-    f.write("\n")
-    f.write("lives=")
-    f.write('%d' % lives)
-    f.write("\n")
-    f.close()
+    saveFiles(charactername, gold, lives)
     print("Data Saved, Returning To Main Game")
     time.sleep(3)
     play()
@@ -2411,7 +2278,40 @@ def sam():
                 input1 = input("> ")
                 while 1:
                     if input1 == "1":
-                        print("Sam - ")
+                        print("Sam - Hey, Thanks for doing all the great work around town.. And Im sure you have been compensated hansomly...")
+                        time.sleep(4)
+                        print("Sam - I will get to work on building the bridge and you should come and check it out when its done ;)")
+                        time.sleep(3)
+                        print("\n1 ) Acknowledge and Leave...")
+                        while 1:
+                            input1 = input("> ")
+                            if input1 == "1":
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                                print("4 Weeks Later...")
+                                array = [[0] * 25 for _ in range(10)]
+                                findingArray = []
+                                with open("map.csv", "r") as c:
+                                    reader = csv.reader(c)
+                                    array = [row for row in reader]
+
+                                for i in range(len(array)):
+                                    for l in range(len(array[i])):
+                                        if array[i][l] == "S":
+                                            findingArray.append(i)
+                                            findingArray.append(l)
+
+                                array[findingArray[0]][findingArray[1]] = " "
+                                # Adding the bridge
+                                array[0][11] = "|"
+                                array[0][12] = "|"
+
+                                with open("map.csv", "w", newline="") as c:
+                                    csvWriter = csv.writer(c, delimiter=',')
+                                    csvWriter.writerows(array)
+                                time.sleep(3)
+                                play()
+                            else:
+                                print("Invalid Input, Please Try Again...")
                     else:
                         print("Invalid Input, Please Try Again...")
         else:
@@ -2424,6 +2324,9 @@ def sam():
             print("Returning to map...")
             time.sleep(1)
             play()
+
+def bridge():
+    print("test")
 
 if __name__ == "__main__":
     main()
