@@ -146,7 +146,7 @@ def newgame():
     time.sleep(1)
     print("Loading Characters...")
     time.sleep(1)
-    verifyFiles()
+    tutorial()
 
 def verifyFiles():
     a = "charactername="
@@ -223,7 +223,6 @@ def play():
         with open("map.csv", "w", newline="") as c:
             csvWriter = csv.writer(c)
             csvWriter.writerows(array)
-
         break
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
@@ -2390,6 +2389,69 @@ def bridge():
     print("Sam - You made it!, We built you a new house after what happened...")
     time.sleep(2)
     print("Sam - Enjoy yourself and most of all Thanks for Playing!")
+    time.sleep(3)
+    play()
+
+def tutorial():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("""
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─██████████████─██████──██████─██████████████─██████████████─████████████████───██████████─██████████████─██████─────────
+─██░░░░░░░░░░██─██░░██──██░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░░░░░██─██░░░░░░░░░░██─██░░██─────────
+─██████░░██████─██░░██──██░░██─██████░░██████─██░░██████░░██─██░░████████░░██───████░░████─██░░██████░░██─██░░██─────────
+─────██░░██─────██░░██──██░░██─────██░░██─────██░░██──██░░██─██░░██────██░░██─────██░░██───██░░██──██░░██─██░░██─────────
+─────██░░██─────██░░██──██░░██─────██░░██─────██░░██──██░░██─██░░████████░░██─────██░░██───██░░██████░░██─██░░██─────────
+─────██░░██─────██░░██──██░░██─────██░░██─────██░░██──██░░██─██░░░░░░░░░░░░██─────██░░██───██░░░░░░░░░░██─██░░██─────────
+─────██░░██─────██░░██──██░░██─────██░░██─────██░░██──██░░██─██░░██████░░████─────██░░██───██░░██████░░██─██░░██─────────
+─────██░░██─────██░░██──██░░██─────██░░██─────██░░██──██░░██─██░░██──██░░██───────██░░██───██░░██──██░░██─██░░██─────────
+─────██░░██─────██░░██████░░██─────██░░██─────██░░██████░░██─██░░██──██░░██████─████░░████─██░░██──██░░██─██░░██████████─
+─────██░░██─────██░░░░░░░░░░██─────██░░██─────██░░░░░░░░░░██─██░░██──██░░░░░░██─██░░░░░░██─██░░██──██░░██─██░░░░░░░░░░██─
+─────██████─────██████████████─────██████─────██████████████─██████──██████████─██████████─██████──██████─██████████████─
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────""")
+
+    print("\nWelcome to the Turotial, Here you will learn about how the game functions and how to play!")
+    time.sleep(3)
+    print("Firstly we will begin with the map markers:\n# - Map Border (You cant surpass this point)\nB - The Bar (You can gamble your gold here & It has some story significance)\nH - Home (Give Game Ratings & View Credits)\nA - Adam (This is the starting point of the Main Story)\nF - Frank (Storyline Significance)\nJ - Jay (Storyline Significance)\nZ - Zane (Storyline Significance)\nG - Greg (Storyline Significance)\nS - Sam (Storyline Significance)")
+    time.sleep(5)
+    print("Expect Characters to Appear & Re-Appear throughout the story...")
+    time.sleep(2)
+    print("\n1 ) Acknowledge & Move On")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            break
+        else:
+            print("Invalid Input, Please Try Again...")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("Secondly we will talk about navigation:\nW - Move Up\nA - Move Left\nS - Move Down\nD - Move Right\nQ - Quit")
+    time.sleep(4)
+    print("You will also need to use numbers 1-3 during character interactions...")
+    time.sleep(2)
+    print("\n1 ) Acknowledge & Move On")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            break
+        else:
+            print("Invalid Input, Please Try Again...")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("Finally we will talk about character battles:\nAttack - Your Attack Stamina\nDefence - Your Defence Status\nEnemy (type) - The enemies Attack & Defence Stats")
+    time.sleep(4)
+    print("\nIn order to fight back you will use:\nA - Use an Attack Move\nD - Use a Defence Move")
+    time.sleep(2)
+    print("\nRemember: If you are attacking you can only use what stamina you have available...")
+    time.sleep(3)
+    print("\nRemember: If you are running low on defence, you could lose. We advise you use a defence move...")
+    time.sleep(3)
+    print("\n1 ) Acknowledge & Move On")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            break
+        else:
+            print("Invalid Input, Please Try Again...")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("Good Luck & Enjoy The Game!")
     time.sleep(3)
     play()
 
