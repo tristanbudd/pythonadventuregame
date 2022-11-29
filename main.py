@@ -47,9 +47,7 @@ def main():
             print("Invalid Input, Please Try Again.")
 
 def newgame():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     print("What would you like to call your character?")
     input1 = input("> ")
     while 1:
@@ -70,16 +68,16 @@ def newgame():
         else:
             print("Invalid Input, Please Try Again.")
     print("Generating The Level...")
-    for i in range(y):
-        for l in range(x):
+    for i in range(10):
+        for l in range(25):
             array[i][l] = "#"
-    for i in range(y - 1):
-        for l in range(x - 1):
+    for i in range(10 - 1):
+        for l in range(25 - 1):
             array[i][l] = " "
     for i in range(1):
-        for l in range(x):
+        for l in range(25):
             array[i][l] = "#"
-    for i in range(y):
+    for i in range(10):
         for l in range(1):
             array[i][l] = "#"
     array[1][1] = "Y"
@@ -104,8 +102,8 @@ def newgame():
     with open("map.csv", "w", newline="") as c:
         csvWriter = csv.writer(c)
         csvWriter.writerows(array)
-    for i in range(y):
-        for l in range(x):
+    for i in range(10):
+        for l in range(25):
             print(array[i][l], end="")
             if l == 24:
                 print()
@@ -148,10 +146,53 @@ def verifyFiles():
     main()
 
 def play():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    judgement = 0
+    array = [[0] * 25 for _ in range(10)]
 
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+
+    while 1:
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "Z":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "J":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "F":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "G":
+                    judgement = judgement + 1
+                    break
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "S":
+                    judgement = judgement + 1
+                    break
+
+        if judgement <= 0:
+            while 1:
+                a = random.randrange(2, 8)
+                b = random.randrange(2, 23)
+                if array[a][b] == " ":
+                    array[a][b] = "G"
+                    break
+
+        with open("map.csv", "w", newline="") as c:
+            csvWriter = csv.writer(c)
+            csvWriter.writerows(array)
+
+        break
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
     charactername = "Error"
@@ -216,8 +257,8 @@ def play():
         with open("map.csv", "r") as c:
             reader = csv.reader(c)
             array = [row for row in reader]
-            for i in range(y):
-                for l in range(x):
+            for i in range(10):
+                for l in range(25):
                     print(array[i][l], end="")
                     if l == 24:
                         print()
@@ -247,9 +288,7 @@ def play():
                 print("Invalid Input ;(, Please Try Again")
 
 def settings():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -361,16 +400,16 @@ def settings():
                     print("Invalid Input, Please Try Again.")
         elif input1 == "4":
             print("Generating New Level")
-            for i in range(y):
-                for l in range(x):
+            for i in range(10):
+                for l in range(25):
                     array[i][l] = "#"
-            for i in range(y - 1):
-                for l in range(x - 1):
+            for i in range(10 - 1):
+                for l in range(25 - 1):
                     array[i][l] = " "
             for i in range(1):
-                for l in range(x):
+                for l in range(25):
                     array[i][l] = "#"
-            for i in range(y):
+            for i in range(10):
                 for l in range(1):
                     array[i][l] = "#"
             array[1][1] = "Y"
@@ -437,9 +476,7 @@ def settings():
             print("\n\n\n\n\n\n\n\n\n\n\n")
 
 def moveRight():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
     with open("map.csv", "r") as c:
@@ -480,6 +517,61 @@ def moveRight():
         print("Opening Convosation With Zane!")
         time.sleep(1)
         zane()
+    if array[findingArray[0]][findingArray[1] + 1] == "G":
+        print("Opening Convosation With Greg!")
+        time.sleep(1)
+        greg()
+    if array[findingArray[0]][findingArray[1] + 1] == "S":
+        print("Opening Convosation With Sam!")
+        time.sleep(1)
+        sam()
+    if array[findingArray[0]][findingArray[1] + 1] == "T":
+        f = open("data.txt", "rt")
+
+        if f.read(14) == "charactername=":
+            charactername = f.readline()
+            charactername.strip("charactername=")
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 1:
+                gold = line.strip()
+        gold = gold.strip("gold=")
+        gold = gold.strip("\n")
+        gold = int(gold)
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 2:
+                lives = line.strip()
+        lives = lives.strip("lives=")
+        lives = lives.strip("\n")
+        lives = int(lives)
+        f.close()
+        print("You have cut down a tree and collected its wood.")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood..")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood...")
+        time.sleep(1)
+        print("+ 50 Gold")
+        time.sleep(3)
+        gold = gold + 50
+        f.close()
+        gold = int(gold)
+        charactername = charactername.strip("\n")
+        f = open("data.txt", "w")
+        f.write("charactername=")
+        f.write(charactername)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
+        f.write("\n")
+        f.close()
+        array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] + 1] = "Y"
@@ -490,9 +582,7 @@ def moveRight():
     play()
 
 def moveLeft():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
     with open("map.csv", "r") as c:
@@ -533,6 +623,61 @@ def moveLeft():
         print("Opening Convosation With Zane!")
         time.sleep(1)
         zane()
+    if array[findingArray[0]][findingArray[1] - 1] == "G":
+        print("Opening Convosation With Greg!")
+        time.sleep(1)
+        greg()
+    if array[findingArray[0]][findingArray[1] - 1] == "S":
+        print("Opening Convosation With Sam!")
+        time.sleep(1)
+        sam()
+    if array[findingArray[0]][findingArray[1] - 1] == "T":
+        f = open("data.txt", "rt")
+
+        if f.read(14) == "charactername=":
+            charactername = f.readline()
+            charactername.strip("charactername=")
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 1:
+                gold = line.strip()
+        gold = gold.strip("gold=")
+        gold = gold.strip("\n")
+        gold = int(gold)
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 2:
+                lives = line.strip()
+        lives = lives.strip("lives=")
+        lives = lives.strip("\n")
+        lives = int(lives)
+        f.close()
+        print("You have cut down a tree and collected its wood.")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood..")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood...")
+        time.sleep(1)
+        print("+ 50 Gold")
+        time.sleep(3)
+        gold = gold + 50
+        f.close()
+        gold = int(gold)
+        charactername = charactername.strip("\n")
+        f = open("data.txt", "w")
+        f.write("charactername=")
+        f.write(charactername)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
+        f.write("\n")
+        f.close()
+        array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0]][findingArray[1] - 1] = "Y"
@@ -543,9 +688,7 @@ def moveLeft():
     play()
 
 def moveUp():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
     with open("map.csv", "r") as c:
@@ -586,6 +729,61 @@ def moveUp():
         print("Opening Convosation With Zane!")
         time.sleep(1)
         zane()
+    if array[findingArray[0] - 1][findingArray[1]] == "G":
+        print("Opening Convosation With Greg!")
+        time.sleep(1)
+        greg()
+    if array[findingArray[0] - 1][findingArray[1]] == "S":
+        print("Opening Convosation With Sam!")
+        time.sleep(1)
+        sam()
+    if array[findingArray[0] - 1][findingArray[1]] == "T":
+        f = open("data.txt", "rt")
+
+        if f.read(14) == "charactername=":
+            charactername = f.readline()
+            charactername.strip("charactername=")
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 1:
+                gold = line.strip()
+        gold = gold.strip("gold=")
+        gold = gold.strip("\n")
+        gold = int(gold)
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 2:
+                lives = line.strip()
+        lives = lives.strip("lives=")
+        lives = lives.strip("\n")
+        lives = int(lives)
+        f.close()
+        print("You have cut down a tree and collected its wood.")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood..")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood...")
+        time.sleep(1)
+        print("+ 50 Gold")
+        time.sleep(3)
+        gold = gold + 50
+        f.close()
+        gold = int(gold)
+        charactername = charactername.strip("\n")
+        f = open("data.txt", "w")
+        f.write("charactername=")
+        f.write(charactername)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
+        f.write("\n")
+        f.close()
+        array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] - 1][findingArray[1]] = "Y"
@@ -596,9 +794,7 @@ def moveUp():
     play()
 
 def moveDown():
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
     with open("map.csv", "r") as c:
@@ -639,6 +835,61 @@ def moveDown():
         print("Opening Convosation With Zane!")
         time.sleep(1)
         zane()
+    if array[findingArray[0] + 1][findingArray[1]] == "G":
+        print("Opening Convosation With Greg!")
+        time.sleep(1)
+        greg()
+    if array[findingArray[0] + 1][findingArray[1]] == "S":
+        print("Opening Convosation With Sam!")
+        time.sleep(1)
+        sam()
+    if array[findingArray[0] + 1][findingArray[1]] == "T":
+        f = open("data.txt", "rt")
+
+        if f.read(14) == "charactername=":
+            charactername = f.readline()
+            charactername.strip("charactername=")
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 1:
+                gold = line.strip()
+        gold = gold.strip("gold=")
+        gold = gold.strip("\n")
+        gold = int(gold)
+
+        f.seek(0)
+        for i, line in enumerate(f):
+            if i == 2:
+                lives = line.strip()
+        lives = lives.strip("lives=")
+        lives = lives.strip("\n")
+        lives = int(lives)
+        f.close()
+        print("You have cut down a tree and collected its wood.")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood..")
+        time.sleep(1)
+        print("You have cut down a tree and collected its wood...")
+        time.sleep(1)
+        print("+ 50 Gold")
+        time.sleep(3)
+        gold = gold + 50
+        f.close()
+        gold = int(gold)
+        charactername = charactername.strip("\n")
+        f = open("data.txt", "w")
+        f.write("charactername=")
+        f.write(charactername)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
+        f.write("\n")
+        f.close()
+        array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
     array[findingArray[0] + 1][findingArray[1]] = "Y"
@@ -733,7 +984,6 @@ def bar():
                 print("It was a draw!, Your money was refunded.")
                 print("+ ", input2, " gold.")
                 gold = gold + input2
-
         elif input1 == "2":
             f.close()
             gold = int(gold)
@@ -756,9 +1006,7 @@ def bar():
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhats the password?")
             input4 = input("> ")
             if input4 == "Adam44":
-                x = 25
-                y = 10
-                array = [[0] * x for _ in range(y)]
+                array = [[0] * 25 for _ in range(10)]
                 with open("map.csv", "r") as c:
                     reader = csv.reader(c)
                     array = [row for row in reader]
@@ -781,6 +1029,10 @@ def bar():
                             time.sleep(3)
                             play()
                         if array[i][l] == "G":
+                            print("\n\n\nZack - You are not able to return here.")
+                            time.sleep(3)
+                            play()
+                        if array[i][l] == "S":
                             print("\n\n\nZack - You are not able to return here.")
                             time.sleep(3)
                             play()
@@ -933,9 +1185,7 @@ def adam():
             f.write("\n")
             f.close()
             # Removing adam from the map
-            x = 25
-            y = 10
-            array = [[0] * x for _ in range(y)]
+            array = [[0] * 25 for _ in range(10)]
             findingArray = []
             with open("map.csv", "r") as c:
                 reader = csv.reader(c)
@@ -1054,9 +1304,7 @@ def frank():
                         f.write("\n")
                         f.close()
                         # Removing frank from the map
-                        x = 25
-                        y = 10
-                        array = [[0] * x for _ in range(y)]
+                        array = [[0] * 25 for _ in range(10)]
                         findingArray = []
                         with open("map.csv", "r") as c:
                             reader = csv.reader(c)
@@ -1111,9 +1359,7 @@ def frank():
                     f.write("\n")
                     f.close()
                     # Removing frank from the map
-                    x = 25
-                    y = 10
-                    array = [[0] * x for _ in range(y)]
+                    array = [[0] * 25 for _ in range(10)]
                     findingArray = []
                     with open("map.csv", "r") as c:
                         reader = csv.reader(c)
@@ -1153,9 +1399,7 @@ def frank():
                     f.write("\n")
                     f.close()
                     # Removing frank from the map
-                    x = 25
-                    y = 10
-                    array = [[0] * x for _ in range(y)]
+                    array = [[0] * 25 for _ in range(10)]
                     findingArray = []
                     with open("map.csv", "r") as c:
                         reader = csv.reader(c)
@@ -1403,9 +1647,7 @@ def jay():
                     f.write("\n")
                     f.close()
                     # Removing jay from the map
-                    x = 25
-                    y = 10
-                    array = [[0] * x for _ in range(y)]
+                    array = [[0] * 25 for _ in range(10)]
                     findingArray = []
                     with open("map.csv", "r") as c:
                         reader = csv.reader(c)
@@ -1445,9 +1687,7 @@ def jay():
                     f.write("\n")
                     f.close()
                     # Removing jay from the map
-                    x = 25
-                    y = 10
-                    array = [[0] * x for _ in range(y)]
+                    array = [[0] * 25 for _ in range(10)]
                     findingArray = []
                     with open("map.csv", "r") as c:
                         reader = csv.reader(c)
@@ -1642,9 +1882,7 @@ def zane():
 █░░░░░░░░░░░░░░░░░░█░░░░░░██░░░░░░█░░░░░░██████████░░░░░░█░░░░░░░░░░░░░░█
 █████████████████████████████████████████████████████████████████████████""")
 
-    x = 25
-    y = 10
-    array = [[0] * x for _ in range(y)]
+    array = [[0] * 25 for _ in range(10)]
     findingArray = []
     findingArray2 = []
     with open("map.csv", "r") as c:
@@ -2022,6 +2260,170 @@ def house():
             play()
         else:
             print("Invalid Input, Please enter 1, 2 or 3...")
+
+def greg():
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    f = open("data.txt", "rt")
+
+    if f.read(14) == "charactername=":
+        charactername = f.readline()
+        charactername.strip("charactername=")
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 1:
+            gold = line.strip()
+    gold = gold.strip("gold=")
+    gold = gold.strip("\n")
+    gold = int(gold)
+
+    f.seek(0)
+    for i, line in enumerate(f):
+        if i == 2:
+            lives = line.strip()
+    lives = lives.strip("lives=")
+    lives = lives.strip("\n")
+    lives = int(lives)
+    f.close()
+
+    print("""
+░██████╗░██████╗░███████╗░██████╗░
+██╔════╝░██╔══██╗██╔════╝██╔════╝░
+██║░░██╗░██████╔╝█████╗░░██║░░██╗░
+██║░░╚██╗██╔══██╗██╔══╝░░██║░░╚██╗
+╚██████╔╝██║░░██║███████╗╚██████╔╝
+░╚═════╝░╚═╝░░╚═╝╚══════╝░╚═════╝░""")
+
+    print("Hello", charactername.strip("\n"), ", Ive been looking to meet you for a while...")
+    print("\n1 ) How do you know my name?\n2 ) What do you want?")
+    while 1:
+        input1 = input("> ")
+        if input1 == "1":
+            print(charactername.strip("\n"), "- How do you know my name?")
+            time.sleep(3)
+            print("Greg - The bartender told me, he kinda knows everything from around here...")
+            break
+        elif input1 == "2":
+            print(charactername.strip("\n"), "- What do you want?")
+            time.sleep(3)
+            print("Greg - Well its not necessarily what I want, I more have something to give you...")
+            break
+        else:
+            print("Invalid Input, Please enter 1 or 2...")
+
+    time.sleep(2)
+    print("Greg - Heres the gold for getting those clowns out of here, on behalf of the bartender of course...")
+    time.sleep(1)
+    print("+250 Gold")
+    gold = gold + 250
+    time.sleep(3)
+    print("Greg - I also have something else for you, Were looking to build a new bridge to the next town...")
+    time.sleep(3)
+    print("Greg - Cut down about 4 trees and I will give you 50 gold for each one, after that look for my friend Sam...")
+    time.sleep(3)
+    print("\n1 ) Accept and Leave")
+    while 1:
+        input2 = input("> ")
+        if input2 == "1":
+            break
+        else:
+            print("Invalid Input, Please Try Again...")
+    time.sleep(1)
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    # Removing greg from the map
+    array = [[0] * 25 for _ in range(10)]
+    findingArray = []
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+
+    for i in range(len(array)):
+        for l in range(len(array[i])):
+            if array[i][l] == "G":
+                findingArray.append(i)
+                findingArray.append(l)
+
+    array[findingArray[0]][findingArray[1]] = " "
+    runtimes = 0
+    while 1:
+        a = random.randrange(1, 9)
+        b = random.randrange(1, 24)
+        if array[a][b] == " ":
+            array[a][b] = "T"
+            runtimes = runtimes + 1
+            if runtimes >= 4:
+                break
+    while 1:
+        a = random.randrange(1, 9)
+        b = random.randrange(1, 24)
+        if array[a][b] == " ":
+            array[a][b] = "S"
+            break
+
+    with open("map.csv", "w", newline="") as c:
+        csvWriter = csv.writer(c, delimiter=',')
+        csvWriter.writerows(array)
+    time.sleep(1)
+    print("Greg disappears into one of the nearby houses...")
+    f.close()
+    gold = int(gold)
+    charactername = charactername.strip("\n")
+    f = open("data.txt", "w")
+    f.write("charactername=")
+    f.write(charactername)
+    f.write("\n")
+    f.write("gold=")
+    f.write('%d' % gold)
+    f.write("\n")
+    f.write("lives=")
+    f.write('%d' % lives)
+    f.write("\n")
+    f.close()
+    print("Data Saved, Returning To Main Game")
+    time.sleep(3)
+    play()
+
+def sam():
+    judgement = 0
+    array = [[0] * 25 for _ in range(10)]
+
+    with open("map.csv", "r") as c:
+        reader = csv.reader(c)
+        array = [row for row in reader]
+
+    while 1:
+        for i in range(len(array)):
+            for l in range(len(array[i])):
+                if array[i][l] == "T":
+                    judgement = judgement + 1
+                    break
+
+        if judgement <= 0:
+            print("""
+┏━━━┳━━━┳━┓┏━┓
+┃┏━┓┃┏━┓┃┃┗┛┃┃
+┃┗━━┫┃╋┃┃┏┓┏┓┃
+┗━━┓┃┗━┛┃┃┃┃┃┃
+┃┗━┛┃┏━┓┃┃┃┃┃┃
+┗━━━┻┛╋┗┻┛┗┛┗┛""")
+            print("\nHello, Im Sam... What can I do for you?\n1 ) Greg Told Me To Talk To You...")
+            while 1:
+                input1 = input("> ")
+                while 1:
+                    if input1 == "1":
+                        print("Sam - ")
+                    else:
+                        print("Invalid Input, Please Try Again...")
+        else:
+            print("\nYou have not collected all trees yet...\n")
+            time.sleep(2)
+            print("Returning to map.")
+            time.sleep(1)
+            print("Returning to map..")
+            time.sleep(1)
+            print("Returning to map...")
+            time.sleep(1)
+            play()
 
 if __name__ == "__main__":
     main()
