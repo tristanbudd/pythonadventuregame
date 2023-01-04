@@ -1,6 +1,7 @@
 import time
 import csv
 import random
+import os
 
 def main():
     while 1:
@@ -224,7 +225,7 @@ def play():
             csvWriter = csv.writer(c)
             csvWriter.writerows(array)
         break
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
 
     charactername = "Error"
     gold = ""
@@ -313,7 +314,7 @@ def play():
                 time.sleep(1)
                 print("Returning to Main Menu...")
                 time.sleep(1)
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                clear()
                 main()
             else:
                 print("Invalid Input ;(, Please Try Again")
@@ -347,7 +348,7 @@ def settings():
         reader = csv.reader(c)
         array = [row for row in reader]
     while 1:
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        clear()
         print("""
         ██ ██ ███ ███ █ █  █ ███ ██
         █▄ █▄  █   █  █ ██▄█ █ ▄ █▄
@@ -488,7 +489,7 @@ def settings():
             time.sleep(1)
             print("Data Saved, Returning to Main Menu...")
             time.sleep(1)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
             main()
         elif input1 == "6":
             print("Returning to Main Menu.")
@@ -497,12 +498,12 @@ def settings():
             time.sleep(1)
             print("Returning to Main Menu...")
             time.sleep(1)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
             main()
         else:
             print("Invalid Input, Please Try Again...")
             time.sleep(2)
-            print("\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
 
 def moveRight():
     array = [[0] * 25 for _ in range(10)]
@@ -893,7 +894,7 @@ def moveDown():
     play()
 
 def bar():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -941,10 +942,10 @@ def bar():
             while 1:
                 input3 = input("> ")
                 if input3 == "1":
-                    coin = "true"
+                    coin = True
                     break
                 elif input3 == "2":
-                    coin = "false"
+                    coin = False
                     break
                 else:
                     print("Invalid Input, Please follow the games rules.")
@@ -956,34 +957,39 @@ def bar():
             time.sleep(1)
             print("Flipping Coin...")
             result = random.randrange(1,100)
-            time.sleep(1)
             if result > 50:
+                coinside = True
+            elif result < 50:
+                coinside = False
+            else:
+                print("It was a draw!, Your money was refunded.")
+                print("+ ", input2, " gold.")
+                gold = gold + input2
+            time.sleep(1)
+            if coinside == True:
                 print("The Result Was: Heads!")
-                if coin == "true":
+                if coin == True:
                     print("Congratulations, you have doubled your money!")
                     print("+", input2 * 2, "gold.")
                     gold = gold + input2 * 2
                 else:
                     print("Sorry, you have lost the money that you have bet.")
-            elif result < 50:
+            elif coinside == False:
                 print("The Result Was: Tails!")
-                if coin == "false":
+                if coin == False:
                     print("Congratulations, you have doubled your money!")
                     print("+ ", input2 * 2, "gold.")
                     gold = gold + input2 * 2
                 else:
                     print("Sorry, you have lost the money that you have bet.")
-            else:
-                print("It was a draw!, Your money was refunded.")
-                print("+ ", input2, " gold.")
-                gold = gold + input2
         elif input1 == "2":
             saveFiles(charactername, gold, lives)
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
         elif input1 == "5":
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhats the password?")
+            clear()
+            print("Whats the password?")
             input4 = input("> ")
             if input4 == "Adam44":
                 array = [[0] * 25 for _ in range(10)]
@@ -1038,7 +1044,7 @@ def bar():
                         time.sleep(2)
                         print("Zack - Thats none of your concern, as of right now.")
                     elif input5 == "3":
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        clear()
                         print(charactername.strip("\n"), "- Okay... I will do it...")
                         time.sleep(2)
                         print("Zack - You made the right choice...")
@@ -1081,10 +1087,10 @@ def bar():
                 time.sleep(1)
                 play()
         else:
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNot Found, Please Try Again")
+            print("Not Found, Please Try Again")
 
 def adam():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -1136,7 +1142,7 @@ def adam():
     while 1:
         input2 = input("> ")
         if input2 == "1":
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
             time.sleep(1)
             print("Adam - Good Luck...")
             print("Adam walks out of town into the fog...")
@@ -1164,7 +1170,7 @@ def adam():
             play()
 
 def frank():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -1242,7 +1248,7 @@ def frank():
                     if gold > 500:
                         print("Frank - Fine, That will probably be enough. Goodbye...")
                         time.sleep(3)
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        clear()
                         time.sleep(2)
                         print("Frank Leaves Town...")
                         gold = 0
@@ -1282,7 +1288,7 @@ def frank():
             time.sleep(1)
             while 1:
                 if defence <= 0:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    clear()
                     print("You have lost the battle ;(")
                     print("-1 Lives")
                     lives - 1
@@ -1311,7 +1317,7 @@ def frank():
                     print("Data Saved, Returning To Main Game")
                     play()
                 if enemydefence <= 0:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    clear()
                     print("You have won the battle!")
                     time.sleep(2)
                     print("Frank Leaves Town Having Sustained Bad Injuries...")
@@ -1337,7 +1343,7 @@ def frank():
                         csvWriter.writerows(array)
                     print("Data Saved, Returning To Main Game")
                     play()
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                clear()
                 print("""
 (._.)
 <|>
@@ -1470,7 +1476,7 @@ _/\_""")
             print("Invalid Input, Please enter 1, 2 or 3...")
 
 def jay():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -1544,7 +1550,7 @@ def jay():
             time.sleep(1)
             while 1:
                 if defence <= 0:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    clear()
                     print("You have lost the battle ;(")
                     print("-1 Lives")
                     lives - 1
@@ -1573,7 +1579,7 @@ def jay():
                     print("Data Saved, Returning To Main Game")
                     play()
                 if enemydefence <= 0:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    clear()
                     print("You have won the battle!")
                     time.sleep(2)
                     print("Jay Leaves Town In An Ambulance...")
@@ -1599,7 +1605,7 @@ def jay():
                         csvWriter.writerows(array)
                     print("Data Saved, Returning To Main Game")
                     play()
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                clear()
                 print("""
             (`-`)
             -|-
@@ -1736,7 +1742,7 @@ def jay():
             print("Invalid Input, Please enter 1, 2 or 3...")
 
 def zane():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -1974,7 +1980,7 @@ def zane():
             print("Invalid Input, Please Try Again...")
             continue
 
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        clear()
         time.sleep(2)
         print("Zane runs away out of town...")
         time.sleep(5)
@@ -1995,7 +2001,7 @@ def zane():
         play()
 
 def house():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -2020,7 +2026,6 @@ def house():
     f.close()
 
     print("""
-
     ) )        /\
    =====      /  \
   _|___|_____/ __ \____________
@@ -2047,26 +2052,27 @@ def house():
             print("How would you rate the game overall: (Out Of 5)")
             while 1:
                 input2 = input("> ")
-                if input2 == "0":
-                    rating = 0
-                    break
-                elif input2 == "1":
-                    rating = 1
-                    break
-                elif input2 == "2":
-                    rating = 2
-                    break
-                elif input2 == "3":
-                    rating = 3
-                    break
-                elif input2 == "4":
-                    rating = 4
-                    break
-                elif input2 == "5":
-                    rating = 5
-                    break
-                else:
-                    print("Invalid Input, Please enter a number 1-5...")
+                match input2:
+                    case "0":
+                        rating = 0
+                        break
+                    case "1":
+                        rating = 1
+                        break
+                    case "2":
+                        rating = 2
+                        break
+                    case "3":
+                        rating = 3
+                        break
+                    case "4":
+                        rating = 4
+                        break
+                    case "5":
+                        rating = 5
+                        break
+                    case _:
+                        print("Invalid Input, Please enter a number 1-5...")
             print("How did you find the story (Text Answer):")
             input3 = input("> ")
             print("Would you recommend this game to a friend? (Yes or No)")
@@ -2098,7 +2104,7 @@ def house():
             time.sleep(3)
             print("\nThank you for taking part in the survey, It has been saved and sent to the Game Developer.")
             time.sleep(3)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
             print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
         elif input1 == "2":
             print("""
@@ -2125,7 +2131,7 @@ def house():
             time.sleep(0.5)
             print("Brendon")
             time.sleep(5)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            clear()
             print("Please select an option to continue:\n1 ) Give Game Feedback\n2 ) Game Credits\n3 ) Leave House")
         elif input1 == "3":
             print("Leaving Home.")
@@ -2142,7 +2148,7 @@ def house():
             print("Invalid Input, Please enter 1, 2 or 3...")
 
 def greg():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     f = open("data.txt", "rt")
 
     if f.read(14) == "charactername=":
@@ -2211,7 +2217,7 @@ def greg():
         else:
             print("Invalid Input, Please Try Again...")
     time.sleep(1)
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     # Removing greg from the map
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
@@ -2288,7 +2294,7 @@ def sam():
                         while 1:
                             input1 = input("> ")
                             if input1 == "1":
-                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                                clear()
                                 print("4 Weeks Later...")
                                 array = [[0] * 25 for _ in range(10)]
                                 findingArray = []
@@ -2328,7 +2334,7 @@ def sam():
             play()
 
 def bridge():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
     with open("map.csv", "r") as c:
@@ -2393,7 +2399,7 @@ def bridge():
     play()
 
 def tutorial():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     print("""
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ─██████████████─██████──██████─██████████████─██████████████─████████████████───██████████─██████████████─██████─────────
@@ -2422,7 +2428,7 @@ def tutorial():
             break
         else:
             print("Invalid Input, Please Try Again...")
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     print("Secondly we will talk about navigation:\nW - Move Up\nA - Move Left\nS - Move Down\nD - Move Right\nQ - Quit")
     time.sleep(4)
     print("You will also need to use numbers 1-3 during character interactions...")
@@ -2434,7 +2440,7 @@ def tutorial():
             break
         else:
             print("Invalid Input, Please Try Again...")
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     print("Finally we will talk about character battles:\nAttack - Your Attack Stamina\nDefence - Your Defence Status\nEnemy (type) - The enemies Attack & Defence Stats")
     time.sleep(4)
     print("\nIn order to fight back you will use:\nA - Use an Attack Move\nD - Use a Defence Move")
@@ -2450,10 +2456,13 @@ def tutorial():
             break
         else:
             print("Invalid Input, Please Try Again...")
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    clear()
     print("Good Luck & Enjoy The Game!")
     time.sleep(3)
     play()
+
+def clear():
+    os.system('cls')
 
 if __name__ == "__main__":
     main()
