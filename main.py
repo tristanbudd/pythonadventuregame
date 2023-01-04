@@ -31,7 +31,7 @@ def main():
 
         input1 = input("> ")
         if input1 == "1":
-            newgame()
+            new_game()
         elif input1 == "2":
             print("Loading Game...")
             time.sleep(1)
@@ -39,7 +39,7 @@ def main():
             time.sleep(1)
             print("Loading Characters...")
             time.sleep(1)
-            verifyFiles()
+            verify_files()
             play()
         elif input1 == "3":
             settings()
@@ -48,7 +48,7 @@ def main():
         else:
             print("Invalid Input, Please Try Again.")
 
-def saveFiles(charactername, gold, lives):
+def save_files(charactername, gold, lives):
     f = open("data.txt", "w")
     gold = int(gold)
     lives = int(lives)
@@ -63,7 +63,7 @@ def saveFiles(charactername, gold, lives):
     f.write("\n")
     f.close()
 
-def newgame():
+def new_game():
     array = [[0] * 25 for _ in range(10)]
     print("What would you like to call your character?")
     input1 = input("> ")
@@ -149,7 +149,7 @@ def newgame():
     time.sleep(1)
     tutorial()
 
-def verifyFiles():
+def verify_files():
     a = "charactername="
     b = "gold="
     c = "lives="
@@ -300,13 +300,13 @@ def play():
         while 1:
             maininput = input("> ")
             if maininput.upper() == "W":
-                moveUp()
+                move_up()
             elif maininput.upper() == "A":
-                moveLeft()
+                move_left()
             elif maininput.upper() == "S":
-                moveDown()
+                move_down()
             elif maininput.upper() == "D":
-                moveRight()
+                move_right()
             elif maininput.upper() == "Q":
                 print("Returning to Main Menu.")
                 time.sleep(1)
@@ -505,7 +505,7 @@ def settings():
             time.sleep(2)
             clear()
 
-def moveRight():
+def move_right():
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
@@ -591,7 +591,7 @@ def moveRight():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        saveFiles(charactername, gold, lives)
+        save_files(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -602,7 +602,7 @@ def moveRight():
         csvWriter.writerows(array)
     play()
 
-def moveLeft():
+def move_left():
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
@@ -688,7 +688,7 @@ def moveLeft():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        saveFiles(charactername, gold, lives)
+        save_files(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -699,7 +699,7 @@ def moveLeft():
         csvWriter.writerows(array)
     play()
 
-def moveUp():
+def move_up():
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
@@ -785,7 +785,7 @@ def moveUp():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        saveFiles(charactername, gold, lives)
+        save_files(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -796,7 +796,7 @@ def moveUp():
         csvWriter.writerows(array)
     play()
 
-def moveDown():
+def move_down():
     array = [[0] * 25 for _ in range(10)]
     findingArray = []
 
@@ -882,7 +882,7 @@ def moveDown():
         print("+ 50 Gold")
         time.sleep(3)
         gold = gold + 50
-        saveFiles(charactername, gold, lives)
+        save_files(charactername, gold, lives)
         array[findingArray[0]][findingArray[1] + 1] = " "
 
     array[findingArray[0]][findingArray[1]] = " "
@@ -983,7 +983,7 @@ def bar():
                 else:
                     print("Sorry, you have lost the money that you have bet.")
         elif input1 == "2":
-            saveFiles(charactername, gold, lives)
+            save_files(charactername, gold, lives)
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
@@ -1082,7 +1082,7 @@ def bar():
                 time.sleep(2)
                 print("You get kicked out the bar...")
                 time.sleep(2)
-                saveFiles(charactername, gold, lives)
+                save_files(charactername, gold, lives)
                 print("Data Saved, Returning To Main Game")
                 time.sleep(1)
                 play()
@@ -1147,7 +1147,7 @@ def adam():
             print("Adam - Good Luck...")
             print("Adam walks out of town into the fog...")
             time.sleep(3)
-            saveFiles(charactername, gold, lives)
+            save_files(charactername, gold, lives)
             # Removing adam from the map
             array = [[0] * 25 for _ in range(10)]
             findingArray = []
@@ -1253,7 +1253,7 @@ def frank():
                         print("Frank Leaves Town...")
                         gold = 0
                         time.sleep(3)
-                        saveFiles(charactername, gold, lives)
+                        save_files(charactername, gold, lives)
                         # Removing frank from the map
                         array = [[0] * 25 for _ in range(10)]
                         findingArray = []
@@ -1295,7 +1295,7 @@ def frank():
                     time.sleep(2)
                     print("Frank Decides To Leave Town & Get Medical Care...")
                     time.sleep(5)
-                    saveFiles(charactername, gold, lives)
+                    save_files(charactername, gold, lives)
                     # Removing frank from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1322,7 +1322,7 @@ def frank():
                     time.sleep(2)
                     print("Frank Leaves Town Having Sustained Bad Injuries...")
                     time.sleep(5)
-                    saveFiles(charactername, gold, lives)
+                    save_files(charactername, gold, lives)
                     # Removing frank from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1557,7 +1557,7 @@ def jay():
                     time.sleep(2)
                     print("Jay Leaves Town To Get Medical Care With An Angry Look On His Face...")
                     time.sleep(5)
-                    saveFiles(charactername, gold, lives)
+                    save_files(charactername, gold, lives)
                     # Removing jay from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1584,7 +1584,7 @@ def jay():
                     time.sleep(2)
                     print("Jay Leaves Town In An Ambulance...")
                     time.sleep(5)
-                    saveFiles(charactername, gold, lives)
+                    save_files(charactername, gold, lives)
                     # Removing jay from the map
                     array = [[0] * 25 for _ in range(10)]
                     findingArray = []
@@ -1984,7 +1984,7 @@ def zane():
         time.sleep(2)
         print("Zane runs away out of town...")
         time.sleep(5)
-        saveFiles(charactername, gold, lives)
+        save_files(charactername, gold, lives)
         # Removing zane from the map
         for i in range(len(array)):
             for l in range(len(array[i])):
@@ -2140,7 +2140,7 @@ def house():
             time.sleep(1)
             print("Leaving Home..")
             time.sleep(1)
-            saveFiles(charactername, gold, lives)
+            save_files(charactername, gold, lives)
             print("Data Saved, Returning To Main Game")
             time.sleep(1)
             play()
@@ -2253,7 +2253,7 @@ def greg():
         csvWriter.writerows(array)
     time.sleep(1)
     print("Greg disappears into one of the nearby houses...")
-    saveFiles(charactername, gold, lives)
+    save_files(charactername, gold, lives)
     print("Data Saved, Returning To Main Game")
     time.sleep(3)
     play()
