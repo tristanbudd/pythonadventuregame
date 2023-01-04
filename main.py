@@ -64,23 +64,26 @@ def save_files(charactername, gold, lives):
     f.close()
 
 def new_game():
+    EASY = (500, 3)
+    MEDIUM = (250, 2)
+    HARD = (0, 1)
     array = [[0] * 25 for _ in range(10)]
     print("What would you like to call your character?")
     input1 = input("> ")
     while 1:
-        print("What would you like your starting difficulty to be?\n1 ) Easy - Start With 500 Gold, 3 Lives\n2 ) Medium - Start With 250 Gold, 2 Lives\n3 ) Hard - Start With 0 Gold, 1 Lives")
+        print("What would you like your starting difficulty to be?\n1 ) Easy - Start With", EASY[0], "Gold,", EASY[1], "Lives\n2 ) Medium - Start With", MEDIUM[0], "Gold,", MEDIUM[1], "Lives\n3 ) Hard - Start With", HARD[0], "Gold,", HARD[1], "Lives")
         input2 = input("> ")
         if input2 == "1":
-            gold = 500
-            lives = 3
+            gold = EASY[0]
+            lives = EASY[1]
             break
         elif input2 == "2":
-            gold = 250
-            lives = 2
+            gold = MEDIUM[0]
+            lives = MEDIUM[1]
             break
         elif input2 == "3":
-            gold = 0
-            lives = 1
+            gold = HARD[0]
+            lives = HARD[1]
             break
         else:
             print("Invalid Input, Please Try Again.")
