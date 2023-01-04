@@ -69,7 +69,15 @@ def new_game():
     HARD = (0, 1)
     array = [[0] * 25 for _ in range(10)]
     print("What would you like to call your character?")
-    input1 = input("> ")
+    while 1:
+        input1 = input("> ")
+        if len(input1) in range(2,10):
+            print("Your character name can not be more than 10 or less than 2, please try again.")
+        else:
+                if input1.isalnum():
+                    print("Your character name can't contain numbers or decimals, please try again.")
+                else:
+                    break
     while 1:
         print("What would you like your starting difficulty to be?\n1 ) Easy - Start With", EASY[0], "Gold,", EASY[1], "Lives\n2 ) Medium - Start With", MEDIUM[0], "Gold,", MEDIUM[1], "Lives\n3 ) Hard - Start With", HARD[0], "Gold,", HARD[1], "Lives")
         input2 = input("> ")
