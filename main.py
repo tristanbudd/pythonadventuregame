@@ -3,50 +3,72 @@ import csv
 import random
 import os
 
+EASY = (500, 3)
+MEDIUM = (250, 2)
+HARD = (0, 1)
+
 def main():
-    while 1:
-        tmp = open("data.txt", "a")
-        tmp.close()
-        tmp = open("map.csv", "a")
-        tmp.close()
-        f = open("data.txt", "rt")
+    data = open("data.txt", "a")
+    data.close()
+    map = open("map.csv", "a")
+    map.close()
+
+    options = {
+        "1": new_game,
+        "2": load_game,
+        "3": settings,
+        "4": quit
+    }
+
+    while True:
         print("""
-╔╦═╦╦╦══════╦╦════════╦╦═════╦╦╗
-║║║╠╝╠╦╦═╦═╦╣╠╦╗╔╦═╦═╗║║╔═╦═╦╝║║
-║║╩║║║║║╩╣║╠╗╔╣╚╝║╠╣╩╣║╚╬╝║║║║║║
-║╚╩╩═╩═╩═╩╩╝╚═╩══╩╝╚═╝╚═╩═╩╩╩═╝║
-╚══════════════════════════════╝
-""")
-        if f.read(14) == "charactername=":
-            charactername = f.readline()
-            charactername.replace('charactername=', '')
-            print("Welcome back", charactername.strip("\n"), ", Please select an option:")
-        else:
-            print("Welcome, Please select an option:")
-        f.close()
+    ╔╦═╦╦╦══════╦╦════════╦╦═════╦╦╗
+    ║║║╠╝╠╦╦═╦═╦╣╠╦╗╔╦═╦═╗║║╔═╦═╦╝║║
+    ║║╩║║║║║╩╣║╠╗╔╣╚╝║╠╣╩╣║╚╬╝║║║║║║
+    ║╚╩╩═╩═╩═╩╩╝╚═╩══╩╝╚═╝╚═╩═╩╩╩═╝║
+    ╚══════════════════════════════╝
+            """)
+        with open("data.txt", "rt") as f:
+            if f.read(14) == "charactername=":
+                charactername = f.readline()
+                charactername.replace('charactername=', '')
+                print(f"Welcome back {charactername.strip()}, Please select an option:")
+            else:
+                print("Welcome, Please select an option:")
+
         print("1 ) Start A New Game")
         print("2 ) Load A Game")
         print("3 ) Settings")
         print("4 ) Quit Game")
 
         input1 = input("> ")
-        if input1 == "1":
-            new_game()
-        elif input1 == "2":
-            print("Loading Game...")
-            time.sleep(1)
-            print("Loading Level...")
-            time.sleep(1)
-            print("Loading Characters...")
-            time.sleep(1)
-            verify_files()
-            play()
-        elif input1 == "3":
-            settings()
-        elif input1 == "4":
-            exit()
+        if input1 in options:
+            options[input1]()
         else:
             print("Invalid Input, Please Try Again.")
+
+def quit():
+    exit()
+
+def load_game():
+    print("Loading Game...")
+    time.sleep(1)
+    print("Loading Level...")
+    time.sleep(1)
+    print("Loading Characters...")
+    time.sleep(1)
+    A = "charactername="
+    B = "gold="
+    C = "lives="
+    with open(r"data.txt", "r+") as f:
+        fileContent = f.read()
+        if A in fileContent and B in fileContent and C in fileContent:
+            play()
+        else:
+            print("Invalid Savegame, Returning to main menu...")
+            f.close()
+            time.sleep(1)
+            main()
 
 def save_files(charactername, gold, lives):
     f = open("data.txt", "w")
@@ -64,20 +86,52 @@ def save_files(charactername, gold, lives):
     f.close()
 
 def new_game():
-    EASY = (500, 3)
-    MEDIUM = (250, 2)
-    HARD = (0, 1)
     array = [[0] * 25 for _ in range(10)]
+    for i in range(10):
+        for l in range(25):
+            array[i][l] = "#"
+    for i in range(10 - 1):
+        for l in range(25 - 1):
+            array[i][l] = " "
+    for i in range(1):
+        for l in range(25):
+            array[i][l] = "#"
+    for i in range(10):
+        for l in range(1):
+            array[i][l] = "#"
+    array[1][1] = "Y"
+
+    characters = ["B", "A", "H"]
+    for char in characters:
+        counter = 0
+        while counter < 100:
+            a = random.randrange(2,8)
+            b = random.randrange(2,23)
+            if array[a][b] == " ":
+                array[a][b] = char
+                break
+            counter += 1
+
+    with open("map.csv", "w", newline="") as c:
+        csvWriter = csv.writer(c)
+        csvWriter.writerows(array)
+
+    for i in range(10):
+        for l in range(25):
+            print(array[i][l], end="")
+            if l == 24:
+                print()
+
     print("What would you like to call your character?")
     while 1:
         input1 = input("> ")
-        if len(input1) in range(2,10):
+        if not (2 < len(input1) < 10):
             print("Your character name can not be more than 10 or less than 2, please try again.")
         else:
-                if input1.isalnum():
-                    print("Your character name can't contain numbers or decimals, please try again.")
-                else:
-                    break
+            if not input1.isalpha():
+                print("Your character name can't contain numbers or decimals, please try again.")
+            else:
+                break
     while 1:
         print("What would you like your starting difficulty to be?\n1 ) Easy - Start With", EASY[0], "Gold,", EASY[1], "Lives\n2 ) Medium - Start With", MEDIUM[0], "Gold,", MEDIUM[1], "Lives\n3 ) Hard - Start With", HARD[0], "Gold,", HARD[1], "Lives")
         input2 = input("> ")
@@ -93,63 +147,20 @@ def new_game():
             gold = HARD[0]
             lives = HARD[1]
             break
-        else:
-            print("Invalid Input, Please Try Again.")
-    print("Generating The Level...")
-    for i in range(10):
-        for l in range(25):
-            array[i][l] = "#"
-    for i in range(10 - 1):
-        for l in range(25 - 1):
-            array[i][l] = " "
-    for i in range(1):
-        for l in range(25):
-            array[i][l] = "#"
-    for i in range(10):
-        for l in range(1):
-            array[i][l] = "#"
-    array[1][1] = "Y"
-    while 1:
-        a = random.randrange(2,8)
-        b = random.randrange(2,23)
-        if array[a][b] == " ":
-            array[a][b] = "B"
-            break
-    while 1:
-        a = random.randrange(2,8)
-        b = random.randrange(2,23)
-        if array[a][b] == " ":
-            array[a][b] = "A"
-            break
-    while 1:
-        a = random.randrange(2,8)
-        b = random.randrange(2,23)
-        if array[a][b] == " ":
-            array[a][b] = "H"
-            break
-    with open("map.csv", "w", newline="") as c:
-        csvWriter = csv.writer(c)
-        csvWriter.writerows(array)
-    for i in range(10):
-        for l in range(25):
-            print(array[i][l], end="")
-            if l == 24:
-                print()
+    
     time.sleep(1)
     print("Saving Level To Data...")
-    f = open("data.txt", "w")
-    gold = int(gold)
-    lives = int(lives)
-    f.write("charactername=")
-    f.write(input1)
-    f.write("\n")
-    f.write("gold=")
-    f.write('%d' % gold)
-    f.write("\n")
-    f.write("lives=")
-    f.write('%d' % lives)
-    f.write("\n")
-    f.close()
+    with open("data.txt", "w") as f:
+        gold = int(gold)
+        lives = int(lives)
+        f.write("charactername=")
+        f.write(input1)
+        f.write("\n")
+        f.write("gold=")
+        f.write('%d' % gold)
+        f.write("\n")
+        f.write("lives=")
+        f.write('%d' % lives)
 
     time.sleep(1)
     print("Loading Game...")
@@ -160,20 +171,6 @@ def new_game():
     time.sleep(1)
     tutorial()
 
-def verify_files():
-    a = "charactername="
-    b = "gold="
-    c = "lives="
-    with open(r"data.txt", "r+") as f:
-        fileContent = f.read()
-        if a in fileContent:
-            if b in fileContent:
-                if c in fileContent:
-                    play()
-    print("Invalid Savegame, Returning to main menu...")
-    f.close()
-    time.sleep(1)
-    main()
 def play():
     judgement = 0
     array = [[0] * 25 for _ in range(10)]
@@ -183,46 +180,13 @@ def play():
         array = [row for row in reader]
 
     while 1:
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "Z":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "J":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "F":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "G":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "A":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "S":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "H":
-                    judgement = judgement + 1
-                    break
-        for i in range(len(array)):
-            for l in range(len(array[i])):
-                if array[i][l] == "|":
-                    judgement = judgement + 1
-                    break
+        characters_to_check = ["Z", "J", "F", "G", "A", "S", "H", "|"]
+        for character in characters_to_check:
+            for i in range(len(array)):
+                for l in range(len(array[i])):
+                    if array[i][l] == character:
+                        judgement = judgement + 1
+                        break
 
         if judgement <= 0:
             while 1:
@@ -243,27 +207,12 @@ def play():
     lives = ""
 
     while 1:
-        f = open("data.txt", "rt")
+        with open("data.txt", "rt") as f:
+            lines = f.readlines()
 
-        if f.read(14) == "charactername=":
-            charactername = f.readline()
-            charactername.strip("charactername=")
-
-        f.seek(0)
-        for i, line in enumerate(f):
-            if i == 1:
-                gold = line.strip()
-                gold = gold.strip("gold=")
-                gold = gold.strip("\n")
-                gold = int(gold)
-
-        f.seek(0)
-        for i, line in enumerate(f):
-            if i == 2:
-                lives = line.strip()
-                lives = lives.strip("lives=")
-                lives = lives.strip("\n")
-                lives = int(lives)
+        charactername = lines[0].strip().replace("charactername=", "")
+        gold = int(lines[1].strip().replace("gold=", ""))
+        lives = int(lines[2].strip().replace("lives=", ""))
 
         if lives <= 0:
             print("""
@@ -331,33 +280,28 @@ def play():
                 print("Invalid Input ;(, Please Try Again")
 
 def settings():
+    A = "charactername="
+    B = "gold="
+    C = "lives="
+    with open(r"data.txt", "r+") as f:
+        fileContent = f.read()
+        if A not in fileContent or B not in fileContent or C not in fileContent:
+            print("Invalid Savegame, Returning to main menu...")
+            f.close()
+            time.sleep(1)
+            main()
     array = [[0] * 25 for _ in range(10)]
-    f = open("data.txt", "rt")
-
-    if f.read(14) == "charactername=":
-        charactername = f.readline()
-        charactername.strip("charactername=")
-
-    f.seek(0)
-    for i, line in enumerate(f):
-        if i == 1:
-            gold = line.strip()
-    gold = gold.strip("gold=")
-    gold = gold.strip("\n")
-    gold = int(gold)
-
-    f.seek(0)
-    for i, line in enumerate(f):
-        if i == 2:
-            lives = line.strip()
-    lives = lives.strip("lives=")
-    lives = lives.strip("\n")
-    lives = int(lives)
-    f.close()
+    
+    with open("data.txt", "rt") as f:
+        lines = f.readlines()
+    charactername = lines[0].strip("charactername=")
+    gold = int(lines[1].strip("gold="))
+    lives = int(lines[2].strip("lives="))
 
     with open("map.csv", "r") as c:
         reader = csv.reader(c)
         array = [row for row in reader]
+
     while 1:
         clear()
         print("""
@@ -478,19 +422,17 @@ def settings():
             print("Adding To Bundle Of Changes...")
             time.sleep(3)
         elif input1 == "5":
-            f = open("data.txt", "w")
-            gold = int(gold)
-            lives = int(lives)
-            f.write("charactername=")
-            f.write(charactername)
-            f.write("\n")
-            f.write("gold=")
-            f.write('%d' % gold)
-            f.write("\n")
-            f.write("lives=")
-            f.write('%d' % lives)
-            f.write("\n")
-            f.close()
+            with open("data.txt", "w") as f:
+                gold = int(gold)
+                lives = int(lives)
+                f.write("charactername=")
+                f.write(charactername)
+                f.write("\n")
+                f.write("gold=")
+                f.write('%d' % gold)
+                f.write("\n")
+                f.write("lives=")
+                f.write('%d' % lives)
             with open("map.csv", "w", newline="") as c:
                 csvWriter = csv.writer(c)
                 csvWriter.writerows(array)
